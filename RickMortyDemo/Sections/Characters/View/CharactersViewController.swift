@@ -13,9 +13,8 @@ import AutolayoutDSL
 final class CharactersViewController: UIViewController {
     
     private lazy var titleImage: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "Rick_and_Morty_Logo"))
+        let image = NavigationTitleIcon()
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.contentMode = .scaleAspectFit
         return image
     }()
     
@@ -25,8 +24,9 @@ final class CharactersViewController: UIViewController {
     
     private lazy var scrollableStackView: ScrollableStackView = {
         let view = ScrollableStackView()
-        view.setSpacing(32.0)
+        view.setSpacing(8.0)
         view.setup(with: self.containerView)
+        view.setScrollDelegate(self)
         return view
     }()
     
@@ -42,6 +42,8 @@ final class CharactersViewController: UIViewController {
     private let dependencies: CharactersDependenciesResolver
     private let viewModel: CharactersViewModel
     private var cancellables = [AnyCancellable]()
+    
+    private var characters: [[Character]] = []
     
     init(dependencies: CharactersDependenciesResolver) {
         self.dependencies = dependencies
@@ -67,7 +69,17 @@ final class CharactersViewController: UIViewController {
     }
 }
 
-extension CharactersViewController {}
+extension CharactersViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let scrollheight = scrollView.frame.size.height
+        
+        if offset > contentHeight - scrollheight * 2 {
+            viewModel.loadMoreCharacters()
+        }
+    }
+}
 
 private extension CharactersViewController {
     func setupView() {
@@ -94,12 +106,12 @@ private extension CharactersViewController {
         viewModel
             .$state
             .receive(on: DispatchQueue.main)
-            .sink { state in
+            .sink { [weak self] state in
                 switch state {
                 case .idle:
                     break
                 case .addCharacters(let characters):
-                    print(characters)
+                    self?.setupNewCharacterViews(characters)
                 case .showLoading(let show):
                     print(show)
                 case .showError(let error):
@@ -107,5 +119,17 @@ private extension CharactersViewController {
                 }
             }
             .store(in: &cancellables)
+    }
+    
+    func setupNewCharacterViews(_ characters: [[Character]]) {
+        self.characters.append(contentsOf: characters)
+        
+        characters.forEach { row in
+            if row.count == 1, let character = row.first {
+                scrollableStackView.addArrangedSubviews(MainCharacterCell(character: character))
+            } else if row.count == 2 {
+                scrollableStackView.addArrangedSubviews(SideCharactersCell(leftCharacter: row[0], rightCharacter: row[1]))
+            }
+        }
     }
 }

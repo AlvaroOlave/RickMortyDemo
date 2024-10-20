@@ -13,9 +13,8 @@ import AutolayoutDSL
 final class EpisodesViewController: UIViewController {
     
     private lazy var titleImage: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "Rick_and_Morty_Logo"))
+        let image = NavigationTitleIcon()
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.contentMode = .scaleAspectFit
         return image
     }()
     

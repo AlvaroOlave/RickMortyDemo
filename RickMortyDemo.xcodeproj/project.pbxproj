@@ -22,6 +22,12 @@
 		041BA5A02CC46726002040B8 /* LocationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA59F2CC46726002040B8 /* LocationUseCase.swift */; };
 		041BA5A22CC46747002040B8 /* EpisodeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA5A12CC46747002040B8 /* EpisodeUseCase.swift */; };
 		041BA5A52CC52779002040B8 /* EpisodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA5A42CC52779002040B8 /* EpisodeTableViewCell.swift */; };
+		041BA5A72CC543F0002040B8 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA5A62CC543F0002040B8 /* ImageLoader.swift */; };
+		041BA5A92CC54800002040B8 /* NavigationTitleIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA5A82CC54800002040B8 /* NavigationTitleIcon.swift */; };
+		041BA5AE2CC54A61002040B8 /* SideCharactersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA5AD2CC54A61002040B8 /* SideCharactersCell.swift */; };
+		041BA5B22CC54ACC002040B8 /* MainCharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA5B12CC54ACC002040B8 /* MainCharacterCell.swift */; };
+		041BA5B42CC55302002040B8 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA5B32CC55302002040B8 /* GradientView.swift */; };
+		041BA5B62CC55B9F002040B8 /* CharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA5B52CC55B9F002040B8 /* CharacterCell.swift */; };
 		043FC9BE2CC2B46B00BE28AD /* ScrollableStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043FC9BD2CC2B46B00BE28AD /* ScrollableStackView.swift */; };
 		043FC9C12CC2B6E400BE28AD /* SharedDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043FC9C02CC2B6E400BE28AD /* SharedDependencies.swift */; };
 		043FC9C42CC2B76E00BE28AD /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043FC9C32CC2B76E00BE28AD /* Coordinator.swift */; };
@@ -95,6 +101,12 @@
 		041BA59F2CC46726002040B8 /* LocationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUseCase.swift; sourceTree = "<group>"; };
 		041BA5A12CC46747002040B8 /* EpisodeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeUseCase.swift; sourceTree = "<group>"; };
 		041BA5A42CC52779002040B8 /* EpisodeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeTableViewCell.swift; sourceTree = "<group>"; };
+		041BA5A62CC543F0002040B8 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		041BA5A82CC54800002040B8 /* NavigationTitleIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTitleIcon.swift; sourceTree = "<group>"; };
+		041BA5AD2CC54A61002040B8 /* SideCharactersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideCharactersCell.swift; sourceTree = "<group>"; };
+		041BA5B12CC54ACC002040B8 /* MainCharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCharacterCell.swift; sourceTree = "<group>"; };
+		041BA5B32CC55302002040B8 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		041BA5B52CC55B9F002040B8 /* CharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCell.swift; sourceTree = "<group>"; };
 		043FC9BD2CC2B46B00BE28AD /* ScrollableStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableStackView.swift; sourceTree = "<group>"; };
 		043FC9C02CC2B6E400BE28AD /* SharedDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDependencies.swift; sourceTree = "<group>"; };
 		043FC9C32CC2B76E00BE28AD /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -234,6 +246,17 @@
 			path = Subviews;
 			sourceTree = "<group>";
 		};
+		041BA5AA2CC54A30002040B8 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				041BA5B52CC55B9F002040B8 /* CharacterCell.swift */,
+				041BA5B12CC54ACC002040B8 /* MainCharacterCell.swift */,
+				041BA5AD2CC54A61002040B8 /* SideCharactersCell.swift */,
+				041BA5B32CC55302002040B8 /* GradientView.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		043FC9BB2CC2B44E00BE28AD /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,6 +272,8 @@
 			children = (
 				043FC9BD2CC2B46B00BE28AD /* ScrollableStackView.swift */,
 				043FCA0A2CC42E8900BE28AD /* Constants.swift */,
+				041BA5A62CC543F0002040B8 /* ImageLoader.swift */,
+				041BA5A82CC54800002040B8 /* NavigationTitleIcon.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -320,6 +345,7 @@
 		043FC9D62CC4152F00BE28AD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				041BA5AA2CC54A30002040B8 /* Subviews */,
 				043FC9CB2CC4147A00BE28AD /* CharactersViewController.swift */,
 			);
 			path = View;
@@ -684,7 +710,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				043FC9DE2CC4156F00BE28AD /* LocationsExternalDependenciesResolver.swift in Sources */,
+				041BA5A72CC543F0002040B8 /* ImageLoader.swift in Sources */,
+				041BA5A92CC54800002040B8 /* NavigationTitleIcon.swift in Sources */,
 				041BA5992CC46651002040B8 /* EpisodeRepository.swift in Sources */,
+				041BA5AE2CC54A61002040B8 /* SideCharactersCell.swift in Sources */,
+				041BA5B42CC55302002040B8 /* GradientView.swift in Sources */,
 				041BA5802CC438CF002040B8 /* CharactersRepository.swift in Sources */,
 				043FCA002CC416E400BE28AD /* MainTabBarDependenciesResolver.swift in Sources */,
 				043FC9FD2CC416E400BE28AD /* MainTabBarCoordinator.swift in Sources */,
@@ -700,6 +730,7 @@
 				041BA5902CC457BE002040B8 /* EpisodesUseCase.swift in Sources */,
 				043FC9BE2CC2B46B00BE28AD /* ScrollableStackView.swift in Sources */,
 				043FC9C62CC2B7A400BE28AD /* BindableCoordinator.swift in Sources */,
+				041BA5B22CC54ACC002040B8 /* MainCharacterCell.swift in Sources */,
 				043FC9CE2CC4147A00BE28AD /* CharactersCoordinator.swift in Sources */,
 				041BA5A02CC46726002040B8 /* LocationUseCase.swift in Sources */,
 				043FC9E12CC4156F00BE28AD /* LocationsViewModel.swift in Sources */,
@@ -725,6 +756,7 @@
 				043FC9D02CC4147A00BE28AD /* CharactersViewController.swift in Sources */,
 				043FCA192CC4360E00BE28AD /* Episode.swift in Sources */,
 				041BA58E2CC457B8002040B8 /* LocationsUseCase.swift in Sources */,
+				041BA5B62CC55B9F002040B8 /* CharacterCell.swift in Sources */,
 				047875692CC2B094003CF29E /* SceneDelegate.swift in Sources */,
 				041BA58C2CC45720002040B8 /* Config.swift in Sources */,
 				043FCA0B2CC42E8900BE28AD /* Constants.swift in Sources */,

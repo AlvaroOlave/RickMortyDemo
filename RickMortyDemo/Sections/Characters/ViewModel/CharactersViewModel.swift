@@ -11,7 +11,7 @@ import Combine
 
 enum CharactersState {
     case idle
-    case addCharacters([Character])
+    case addCharacters([[Character]])
     case showLoading(Bool)
     case showError(Error)
 }
@@ -29,6 +29,7 @@ final class CharactersViewModel {
     }()
     
     private var isLoading = false
+    private var hasMore = true
     
     @Published var state: CharactersState = .idle
     
@@ -42,7 +43,7 @@ final class CharactersViewModel {
     }
     
     func loadMoreCharacters() {
-        guard !isLoading else { return }
+        guard !isLoading && hasMore else { return }
         loadCharacters()
     }
 }
@@ -53,7 +54,8 @@ private extension CharactersViewModel {
             isLoading = true
             do {
                 let characters = try await charactersUseCase.getCharacters()
-                state = .addCharacters(characters)
+                hasMore = !characters.isEmpty
+                splitCharacters(characters)
                 state = .showLoading(false)
                 isLoading = false
             } catch {
@@ -64,7 +66,36 @@ private extension CharactersViewModel {
         }
     }
     
-    func getSuggestions() {
+    func splitCharacters(_ characters: [Character]) {
+        var grouped = [[Character]]()
+        var pairBuffer = [Character]()
         
+        characters.forEach { character in
+            if character.name.range(of: "Rick", options: .caseInsensitive) != nil || 
+                character.name.range(of: "Morty", options: .caseInsensitive) != nil {
+                grouped.append([character])
+            } else {
+                pairBuffer.append(character)
+                if pairBuffer.count == 2 {
+                    grouped.append(pairBuffer)
+                    pairBuffer.removeAll()
+                }
+            }
+        }
+        if !pairBuffer.isEmpty {
+            grouped.append(pairBuffer)
+        }
+        state = .addCharacters(grouped)
+    }
+}
+
+
+extension Array {
+    func splitInPairs() -> [(Element, Element?)] {
+        return stride(from: 0, to: self.count, by: 2)
+            .map {
+                guard self.count > $0 + 1 else { return (self[$0], nil) }
+                return (self[$0], self[$0 + 1])
+            }
     }
 }
