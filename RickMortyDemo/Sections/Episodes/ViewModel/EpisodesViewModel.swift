@@ -29,7 +29,7 @@ final class EpisodesViewModel {
     }()
     
     private var isLoading = false
-    
+    private var hasMore = true
     @Published var state: EpisodesState = .idle
     
     init(dependencies: EpisodesDependenciesResolver) {
@@ -42,7 +42,7 @@ final class EpisodesViewModel {
     }
     
     func loadMoreEpisodes() {
-        guard !isLoading else { return }
+        guard !isLoading, hasMore else { return }
         loadEpisodes()
     }
 }
@@ -53,6 +53,7 @@ private extension EpisodesViewModel {
             isLoading = true
             do {
                 let episodes = try await episodesUseCase.getEpisodes()
+                hasMore = !episodes.isEmpty
                 state = .addEpisodes(episodes)
                 state = .showLoading(false)
                 isLoading = false

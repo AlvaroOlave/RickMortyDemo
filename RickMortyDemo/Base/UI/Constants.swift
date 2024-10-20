@@ -16,6 +16,6 @@ struct Colors {
 
 struct Fonts {
     static func markerFont(size: CGFloat) -> UIFont? {
-        UIFont(name: "Marker felt", size: 24.0)
+        UIFont(name: "Marker felt", size: size)
     }
 }
