@@ -26,6 +26,6 @@ extension EpisodesDependenciesResolver {
     }
     
     func resolve() -> EpisodesUseCase {
-        EpisodesUseCaseImpl(repository: EpisodeRepositoryImpl(baseURL: Config.baseURL))
+        EpisodesUseCaseImpl(repository: EpisodesRepositoryImpl(baseURL: Config.baseURL))
     }
 }

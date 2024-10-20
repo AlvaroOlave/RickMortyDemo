@@ -13,11 +13,18 @@ protocol LocationsExternalDependenciesResolver {
     
     func locationsCoordinator() -> Coordinator
     func locationsNavigationController() -> UINavigationController
+    
+    func resolve() -> LocationUseCase
+    func resolve() -> CharacterUseCase
 }
 
 extension LocationsExternalDependenciesResolver {
     func locationsCoordinator() -> Coordinator {
         LocationsCoordinatorImpl(dependencies: self,
                                  navigationController: locationsNavigationController())
+    }
+    
+    func resolve() -> LocationUseCase {
+        LocationUseCaseImpl(repository: LocationRepositoryImpl(baseURL: Config.baseURL))
     }
 }

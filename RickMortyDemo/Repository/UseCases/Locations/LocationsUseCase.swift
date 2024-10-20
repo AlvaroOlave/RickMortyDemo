@@ -13,9 +13,9 @@ protocol LocationsUseCase {
 
 struct LocationsUseCaseImpl: LocationsUseCase {
     
-    private let repository: LocationRepository
+    private let repository: LocationsRepository
     
-    init(repository: LocationRepository) {
+    init(repository: LocationsRepository) {
         self.repository = repository
     }
     

@@ -26,6 +26,6 @@ extension LocationsDependenciesResolver {
     }
     
     func resolve() -> LocationsUseCase {
-        LocationsUseCaseImpl(repository: LocationRepositoryImpl(baseURL: Config.baseURL))
+        LocationsUseCaseImpl(repository: LocationsRepositoryImpl(baseURL: Config.baseURL))
     }
 }

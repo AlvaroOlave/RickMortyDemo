@@ -13,9 +13,9 @@ protocol CharactersUseCase {
 
 struct CharactersUseCaseImpl: CharactersUseCase {
     
-    private let repository: CharacterRepository
+    private let repository: CharactersRepository
     
-    init(repository: CharacterRepository) {
+    init(repository: CharactersRepository) {
         self.repository = repository
     }
     

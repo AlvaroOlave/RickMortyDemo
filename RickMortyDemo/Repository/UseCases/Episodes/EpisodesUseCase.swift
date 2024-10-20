@@ -13,9 +13,9 @@ protocol EpisodesUseCase {
 
 struct EpisodesUseCaseImpl: EpisodesUseCase {
     
-    private let repository: EpisodeRepository
+    private let repository: EpisodesRepository
     
-    init(repository: EpisodeRepository) {
+    init(repository: EpisodesRepository) {
         self.repository = repository
     }
     

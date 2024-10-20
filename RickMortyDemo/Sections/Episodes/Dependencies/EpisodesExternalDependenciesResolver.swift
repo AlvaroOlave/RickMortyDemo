@@ -13,11 +13,18 @@ protocol EpisodesExternalDependenciesResolver {
     
     func episodesCoordinator() -> Coordinator
     func episodesNavigationController() -> UINavigationController
+    
+    func resolve() -> EpisodeUseCase
+    func resolve() -> CharacterUseCase
 }
 
 extension EpisodesExternalDependenciesResolver {
     func episodesCoordinator() -> Coordinator {
         EpisodesCoordinatorImpl(dependencies: self,
                                 navigationController: episodesNavigationController())
+    }
+    
+    func resolve() -> EpisodeUseCase {
+        EpisodeUseCaseImpl(repository: EpisodeRepositoryImpl(baseURL: Config.baseURL))
     }
 }

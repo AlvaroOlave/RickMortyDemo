@@ -2,32 +2,24 @@
 //  EpisodeRepository.swift
 //  RickMortyDemo
 //
-//  Created by Álvaro Olave Bañeres on 19/10/24.
+//  Created by Álvaro Olave Bañeres on 20/10/24.
 //
 
 import Foundation
 
 protocol EpisodeRepository {
-    func getEpisodes() async throws -> [Episode]
+    func getEpisode(id: Int) async throws -> Episode
 }
 
 final class EpisodeRepositoryImpl: EpisodeRepository {
     
-    private let repository: Repository<CompleteResponse<[Episode]>>
-    
-    internal var currentPage = 0
-    internal var hasMorePages = true
+    private let repository: Repository<Episode>
     
     init(baseURL: String) {
         self.repository = Repository(baseURL: baseURL)
     }
     
-    func getEpisodes() async throws -> [Episode] {
-        guard hasMorePages else { return [] }
-        let completeResponse = try await repository.fetch(endpoint: Config.episode, page: currentPage)
-        manageInfo(completeResponse.info)
-        return completeResponse.results
+    func getEpisode(id: Int) async throws -> Episode {
+        return try await repository.fetch(endpoint: Config.episode + "/\(id)")
     }
 }
-
-extension EpisodeRepositoryImpl: ManageResponseInfo {}

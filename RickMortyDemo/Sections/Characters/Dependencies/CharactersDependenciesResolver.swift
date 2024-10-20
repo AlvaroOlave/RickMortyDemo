@@ -26,6 +26,6 @@ extension CharactersDependenciesResolver {
     }
     
     func resolve() -> CharactersUseCase {
-        CharactersUseCaseImpl(repository: CharacterRepositoryImpl(baseURL: Config.baseURL))
+        CharactersUseCaseImpl(repository: CharactersRepositoryImpl(baseURL: Config.baseURL))
     }
 }

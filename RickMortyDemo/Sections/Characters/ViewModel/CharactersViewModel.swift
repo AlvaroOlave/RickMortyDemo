@@ -48,7 +48,7 @@ final class CharactersViewModel {
 }
 
 private extension CharactersViewModel {
-    func loadCharacters() {
+    func loadCharacters(completion: (() -> Void)? = nil) {
         Task {
             isLoading = true
             do {
@@ -62,5 +62,9 @@ private extension CharactersViewModel {
                 isLoading = false
             }
         }
+    }
+    
+    func getSuggestions() {
+        
     }
 }

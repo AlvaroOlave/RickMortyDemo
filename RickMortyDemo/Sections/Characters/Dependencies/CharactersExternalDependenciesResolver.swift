@@ -13,11 +13,18 @@ protocol CharactersExternalDependenciesResolver {
     
     func charactersCoordinator() -> Coordinator
     func charactersNavigationController() -> UINavigationController
+    
+    func resolve() -> CharacterUseCase
+    func resolve() -> LocationUseCase
 }
 
 extension CharactersExternalDependenciesResolver {
     func charactersCoordinator() -> Coordinator {
         CharactersCoordinatorImpl(dependencies: self,
                                   navigationController: charactersNavigationController())
+    }
+    
+    func resolve() -> CharacterUseCase {
+        CharacterUseCaseImpl(repository: CharacterRepositoryImpl(baseURL: Config.baseURL))
     }
 }

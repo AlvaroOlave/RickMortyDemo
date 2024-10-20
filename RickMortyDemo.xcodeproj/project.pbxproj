@@ -7,14 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		041BA5802CC438CF002040B8 /* CharacterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA57F2CC438CF002040B8 /* CharacterRepository.swift */; };
+		041BA5802CC438CF002040B8 /* CharactersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA57F2CC438CF002040B8 /* CharactersRepository.swift */; };
 		041BA5822CC43E53002040B8 /* CompleteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA5812CC43E53002040B8 /* CompleteResponse.swift */; };
 		041BA5842CC43EB6002040B8 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA5832CC43EB6002040B8 /* Repository.swift */; };
-		041BA5872CC44AB6002040B8 /* LocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA5862CC44AB6002040B8 /* LocationRepository.swift */; };
-		041BA5892CC44B09002040B8 /* EpisodeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA5882CC44B09002040B8 /* EpisodeRepository.swift */; };
+		041BA5872CC44AB6002040B8 /* LocationsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA5862CC44AB6002040B8 /* LocationsRepository.swift */; };
+		041BA5892CC44B09002040B8 /* EpisodesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA5882CC44B09002040B8 /* EpisodesRepository.swift */; };
 		041BA58C2CC45720002040B8 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA58B2CC45720002040B8 /* Config.swift */; };
 		041BA58E2CC457B8002040B8 /* LocationsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA58D2CC457B8002040B8 /* LocationsUseCase.swift */; };
 		041BA5902CC457BE002040B8 /* EpisodesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA58F2CC457BE002040B8 /* EpisodesUseCase.swift */; };
+		041BA5932CC46521002040B8 /* CharacterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA5922CC46521002040B8 /* CharacterRepository.swift */; };
+		041BA5972CC46619002040B8 /* LocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA5962CC46619002040B8 /* LocationRepository.swift */; };
+		041BA5992CC46651002040B8 /* EpisodeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA5982CC46651002040B8 /* EpisodeRepository.swift */; };
+		041BA59C2CC466CA002040B8 /* CharacterUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA59B2CC466CA002040B8 /* CharacterUseCase.swift */; };
+		041BA5A02CC46726002040B8 /* LocationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA59F2CC46726002040B8 /* LocationUseCase.swift */; };
+		041BA5A22CC46747002040B8 /* EpisodeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA5A12CC46747002040B8 /* EpisodeUseCase.swift */; };
 		043FC9BE2CC2B46B00BE28AD /* ScrollableStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043FC9BD2CC2B46B00BE28AD /* ScrollableStackView.swift */; };
 		043FC9C12CC2B6E400BE28AD /* SharedDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043FC9C02CC2B6E400BE28AD /* SharedDependencies.swift */; };
 		043FC9C42CC2B76E00BE28AD /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043FC9C32CC2B76E00BE28AD /* Coordinator.swift */; };
@@ -73,14 +79,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		041BA57F2CC438CF002040B8 /* CharacterRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterRepository.swift; sourceTree = "<group>"; };
+		041BA57F2CC438CF002040B8 /* CharactersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersRepository.swift; sourceTree = "<group>"; };
 		041BA5812CC43E53002040B8 /* CompleteResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteResponse.swift; sourceTree = "<group>"; };
 		041BA5832CC43EB6002040B8 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
-		041BA5862CC44AB6002040B8 /* LocationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRepository.swift; sourceTree = "<group>"; };
-		041BA5882CC44B09002040B8 /* EpisodeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeRepository.swift; sourceTree = "<group>"; };
+		041BA5862CC44AB6002040B8 /* LocationsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsRepository.swift; sourceTree = "<group>"; };
+		041BA5882CC44B09002040B8 /* EpisodesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodesRepository.swift; sourceTree = "<group>"; };
 		041BA58B2CC45720002040B8 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		041BA58D2CC457B8002040B8 /* LocationsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsUseCase.swift; sourceTree = "<group>"; };
 		041BA58F2CC457BE002040B8 /* EpisodesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodesUseCase.swift; sourceTree = "<group>"; };
+		041BA5922CC46521002040B8 /* CharacterRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterRepository.swift; sourceTree = "<group>"; };
+		041BA5962CC46619002040B8 /* LocationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRepository.swift; sourceTree = "<group>"; };
+		041BA5982CC46651002040B8 /* EpisodeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeRepository.swift; sourceTree = "<group>"; };
+		041BA59B2CC466CA002040B8 /* CharacterUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterUseCase.swift; sourceTree = "<group>"; };
+		041BA59F2CC46726002040B8 /* LocationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationUseCase.swift; sourceTree = "<group>"; };
+		041BA5A12CC46747002040B8 /* EpisodeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeUseCase.swift; sourceTree = "<group>"; };
 		043FC9BD2CC2B46B00BE28AD /* ScrollableStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableStackView.swift; sourceTree = "<group>"; };
 		043FC9C02CC2B6E400BE28AD /* SharedDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDependencies.swift; sourceTree = "<group>"; };
 		043FC9C32CC2B76E00BE28AD /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -156,6 +168,60 @@
 				041BA58B2CC45720002040B8 /* Config.swift */,
 			);
 			path = Config;
+			sourceTree = "<group>";
+		};
+		041BA5912CC46512002040B8 /* Character */ = {
+			isa = PBXGroup;
+			children = (
+				041BA57F2CC438CF002040B8 /* CharactersRepository.swift */,
+				041BA5922CC46521002040B8 /* CharacterRepository.swift */,
+			);
+			name = Character;
+			sourceTree = "<group>";
+		};
+		041BA5942CC465EC002040B8 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				041BA5862CC44AB6002040B8 /* LocationsRepository.swift */,
+				041BA5962CC46619002040B8 /* LocationRepository.swift */,
+			);
+			name = Location;
+			sourceTree = "<group>";
+		};
+		041BA5952CC465F2002040B8 /* Episode */ = {
+			isa = PBXGroup;
+			children = (
+				041BA5882CC44B09002040B8 /* EpisodesRepository.swift */,
+				041BA5982CC46651002040B8 /* EpisodeRepository.swift */,
+			);
+			name = Episode;
+			sourceTree = "<group>";
+		};
+		041BA59A2CC466B1002040B8 /* Characters */ = {
+			isa = PBXGroup;
+			children = (
+				043FCA0E2CC433B100BE28AD /* CharactersUseCase.swift */,
+				041BA59B2CC466CA002040B8 /* CharacterUseCase.swift */,
+			);
+			path = Characters;
+			sourceTree = "<group>";
+		};
+		041BA59D2CC46710002040B8 /* Episodes */ = {
+			isa = PBXGroup;
+			children = (
+				041BA58F2CC457BE002040B8 /* EpisodesUseCase.swift */,
+				041BA5A12CC46747002040B8 /* EpisodeUseCase.swift */,
+			);
+			path = Episodes;
+			sourceTree = "<group>";
+		};
+		041BA59E2CC46717002040B8 /* Locations */ = {
+			isa = PBXGroup;
+			children = (
+				041BA58D2CC457B8002040B8 /* LocationsUseCase.swift */,
+				041BA59F2CC46726002040B8 /* LocationUseCase.swift */,
+			);
+			path = Locations;
 			sourceTree = "<group>";
 		};
 		043FC9BB2CC2B44E00BE28AD /* Base */ = {
@@ -376,6 +442,7 @@
 			isa = PBXGroup;
 			children = (
 				043FCA1A2CC4369300BE28AD /* Repository */,
+				041BA5832CC43EB6002040B8 /* Repository.swift */,
 				043FCA0D2CC4338900BE28AD /* UseCases */,
 			);
 			path = Repository;
@@ -384,9 +451,9 @@
 		043FCA0D2CC4338900BE28AD /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
-				043FCA0E2CC433B100BE28AD /* CharactersUseCase.swift */,
-				041BA58D2CC457B8002040B8 /* LocationsUseCase.swift */,
-				041BA58F2CC457BE002040B8 /* EpisodesUseCase.swift */,
+				041BA59A2CC466B1002040B8 /* Characters */,
+				041BA59E2CC46717002040B8 /* Locations */,
+				041BA59D2CC46710002040B8 /* Episodes */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -406,10 +473,9 @@
 		043FCA1A2CC4369300BE28AD /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				041BA5832CC43EB6002040B8 /* Repository.swift */,
-				041BA57F2CC438CF002040B8 /* CharacterRepository.swift */,
-				041BA5862CC44AB6002040B8 /* LocationRepository.swift */,
-				041BA5882CC44B09002040B8 /* EpisodeRepository.swift */,
+				041BA5912CC46512002040B8 /* Character */,
+				041BA5942CC465EC002040B8 /* Location */,
+				041BA5952CC465F2002040B8 /* Episode */,
 			);
 			name = Repository;
 			sourceTree = "<group>";
@@ -607,7 +673,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				043FC9DE2CC4156F00BE28AD /* LocationsExternalDependenciesResolver.swift in Sources */,
-				041BA5802CC438CF002040B8 /* CharacterRepository.swift in Sources */,
+				041BA5992CC46651002040B8 /* EpisodeRepository.swift in Sources */,
+				041BA5802CC438CF002040B8 /* CharactersRepository.swift in Sources */,
 				043FCA002CC416E400BE28AD /* MainTabBarDependenciesResolver.swift in Sources */,
 				043FC9FD2CC416E400BE28AD /* MainTabBarCoordinator.swift in Sources */,
 				043FC9ED2CC415DE00BE28AD /* EpisodesExternalDependenciesResolver.swift in Sources */,
@@ -615,15 +682,20 @@
 				043FC9FE2CC416E400BE28AD /* MainTabBarExternalDependenciesResolver.swift in Sources */,
 				043FC9CF2CC4147A00BE28AD /* CharactersExternalDependenciesResolver.swift in Sources */,
 				043FC9D12CC4147A00BE28AD /* CharactersDependenciesResolver.swift in Sources */,
+				041BA5932CC46521002040B8 /* CharacterRepository.swift in Sources */,
+				041BA59C2CC466CA002040B8 /* CharacterUseCase.swift in Sources */,
+				041BA5972CC46619002040B8 /* LocationRepository.swift in Sources */,
 				043FC9EC2CC415DE00BE28AD /* EpisodesCoordinator.swift in Sources */,
 				041BA5902CC457BE002040B8 /* EpisodesUseCase.swift in Sources */,
 				043FC9BE2CC2B46B00BE28AD /* ScrollableStackView.swift in Sources */,
 				043FC9C62CC2B7A400BE28AD /* BindableCoordinator.swift in Sources */,
 				043FC9CE2CC4147A00BE28AD /* CharactersCoordinator.swift in Sources */,
+				041BA5A02CC46726002040B8 /* LocationUseCase.swift in Sources */,
 				043FC9E12CC4156F00BE28AD /* LocationsViewModel.swift in Sources */,
 				043FC9EE2CC415DE00BE28AD /* EpisodesViewController.swift in Sources */,
 				043FC9F02CC415DE00BE28AD /* EpisodesViewModel.swift in Sources */,
-				041BA5872CC44AB6002040B8 /* LocationRepository.swift in Sources */,
+				041BA5872CC44AB6002040B8 /* LocationsRepository.swift in Sources */,
+				041BA5A22CC46747002040B8 /* EpisodeUseCase.swift in Sources */,
 				043FCA142CC4356B00BE28AD /* RequestInfo.swift in Sources */,
 				043FC9C42CC2B76E00BE28AD /* Coordinator.swift in Sources */,
 				043FC9DD2CC4156F00BE28AD /* LocationsCoordinator.swift in Sources */,
@@ -638,7 +710,7 @@
 				043FC9C12CC2B6E400BE28AD /* SharedDependencies.swift in Sources */,
 				041BA5822CC43E53002040B8 /* CompleteResponse.swift in Sources */,
 				041BA5842CC43EB6002040B8 /* Repository.swift in Sources */,
-				041BA5892CC44B09002040B8 /* EpisodeRepository.swift in Sources */,
+				041BA5892CC44B09002040B8 /* EpisodesRepository.swift in Sources */,
 				043FC9D02CC4147A00BE28AD /* CharactersViewController.swift in Sources */,
 				043FCA192CC4360E00BE28AD /* Episode.swift in Sources */,
 				041BA58E2CC457B8002040B8 /* LocationsUseCase.swift in Sources */,

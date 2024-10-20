@@ -2,32 +2,24 @@
 //  LocationRepository.swift
 //  RickMortyDemo
 //
-//  Created by Álvaro Olave Bañeres on 19/10/24.
+//  Created by Álvaro Olave Bañeres on 20/10/24.
 //
 
 import Foundation
 
 protocol LocationRepository {
-    func getLocations() async throws -> [Location]
+    func getLocation(id: Int) async throws -> Location
 }
 
 final class LocationRepositoryImpl: LocationRepository {
     
-    private let repository: Repository<CompleteResponse<[Location]>>
-    
-    internal var currentPage = 0
-    internal var hasMorePages = true
+    private let repository: Repository<Location>
     
     init(baseURL: String) {
         self.repository = Repository(baseURL: baseURL)
     }
     
-    func getLocations() async throws -> [Location] {
-        guard hasMorePages else { return [] }
-        let completeResponse = try await repository.fetch(endpoint: Config.location, page: currentPage)
-        manageInfo(completeResponse.info)
-        return completeResponse.results
+    func getLocation(id: Int) async throws -> Location {
+        return try await repository.fetch(endpoint: Config.location + "/\(id)")
     }
 }
-
-extension LocationRepositoryImpl: ManageResponseInfo {}
