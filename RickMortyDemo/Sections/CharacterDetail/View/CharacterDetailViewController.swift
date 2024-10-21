@@ -81,6 +81,12 @@ final class CharacterDetailViewController: UIViewController {
         return view
     }()
     
+    private lazy var errorView: ErrorView = {
+        let error = ErrorView()
+        error.translatesAutoresizingMaskIntoConstraints = false
+        return error
+    }()
+    
     private let dependencies: CharacterDetailDependenciesResolver
     private let viewModel: CharacterDetailViewModel
     private var cancellables = [AnyCancellable]()
@@ -144,7 +150,7 @@ private extension CharacterDetailViewController {
                 case .showLoading(let show):
                     self?.showLoadingView(isVisible: show)
                 case .showError(let error):
-                    print(error)
+                    self?.showError(error)
                 case .showEpisode(let episode):
                     self?.showEpisodePopup(episode)
                 }
@@ -211,6 +217,17 @@ private extension CharacterDetailViewController {
         guard let id = id else { return }
         episodePopup?.dismiss()
         viewModel.goToCharacter(id)
+    }
+    
+    func showError(_ error: Error) {
+        characterImage.isHidden = true
+        characterSpecies.isHidden = true
+        characterStatus.isHidden = true
+        originView.isHidden = true
+        currentLocationView.isHidden = true
+        episodesListView.isHidden = true
+        errorView.setErrorDescription(error.localizedDescription)
+        scrollableStackView.addArrangedSubviews(errorView)
     }
 }
 

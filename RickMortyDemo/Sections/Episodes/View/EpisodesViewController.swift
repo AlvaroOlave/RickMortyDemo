@@ -30,6 +30,13 @@ final class EpisodesViewController: UIViewController {
         return table
     }()
     
+    private lazy var errorView: ErrorView = {
+        let error = ErrorView()
+        error.translatesAutoresizingMaskIntoConstraints = false
+        error.isHidden = true
+        return error
+    }()
+    
     private let dependencies: EpisodesDependenciesResolver
     private let viewModel: EpisodesViewModel
     private var cancellables = [AnyCancellable]()
@@ -105,6 +112,7 @@ private extension EpisodesViewController {
         view.backgroundColor = Colors.rmGreen
         navigationItem.titleView = titleImage
         view.addSubview(tableView)
+        view.addSubview(errorView)
         setupConstraints()
     }
     
@@ -113,6 +121,11 @@ private extension EpisodesViewController {
             $0.top == view.safeAreaLayoutGuide.topAnchor + 16.0
             $0 -|- view
             $0.bottom == view.safeAreaLayoutGuide.bottomAnchor
+        }
+        
+        errorView.layout {
+            $0.top == view.safeAreaLayoutGuide.topAnchor + 16.0
+            $0 -|- (view + 16.0)
         }
     }
     
@@ -130,7 +143,7 @@ private extension EpisodesViewController {
                 case .showLoading(let show):
                     self?.showLoadingView(isVisible: show)
                 case .showError(let error):
-                    print(error)
+                    self?.showError(error)
                 }
             }
             .store(in: &cancellables)
@@ -144,6 +157,12 @@ private extension EpisodesViewController {
                 guard let id = id else { return }
                 self?.viewModel.goToCharacter(id)
             }.store(in: &cancellables)
+    }
+    
+    func showError(_ error: Error) {
+        tableView.isHidden = true
+        errorView.isHidden = false
+        errorView.setErrorDescription(error.localizedDescription)
     }
 }
 

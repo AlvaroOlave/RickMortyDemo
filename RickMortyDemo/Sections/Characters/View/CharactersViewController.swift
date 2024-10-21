@@ -39,6 +39,12 @@ final class CharactersViewController: UIViewController {
         return label
     }()
     
+    private lazy var errorView: ErrorView = {
+        let error = ErrorView()
+        error.translatesAutoresizingMaskIntoConstraints = false
+        return error
+    }()
+    
     private let dependencies: CharactersDependenciesResolver
     private let viewModel: CharactersViewModel
     private var cancellables = [AnyCancellable]()
@@ -115,7 +121,7 @@ private extension CharactersViewController {
                 case .showLoading(let show):
                     self?.showLoadingView(isVisible: show)
                 case .showError(let error):
-                    print(error)
+                    self?.showError(error)
                 }
             }
             .store(in: &cancellables)
@@ -145,6 +151,12 @@ private extension CharactersViewController {
                 scrollableStackView.addArrangedSubviews(cell)
             }
         }
+    }
+    
+    func showError(_ error: Error) {
+        guard characters.isEmpty else { return }
+        errorView.setErrorDescription(error.localizedDescription)
+        scrollableStackView.addArrangedSubviews(errorView)
     }
 }
 

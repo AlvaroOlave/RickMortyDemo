@@ -48,6 +48,12 @@ final class LocationDetailViewController: UIViewController {
         return view
     }()
     
+    private lazy var errorView: ErrorView = {
+        let error = ErrorView()
+        error.translatesAutoresizingMaskIntoConstraints = false
+        return error
+    }()
+    
     private let dependencies: LocationDetailDependenciesResolver
     private let viewModel: LocationDetailViewModel
     private var cancellables = [AnyCancellable]()
@@ -114,7 +120,7 @@ private extension LocationDetailViewController {
                 case .showLoading(let show):
                     self?.showLoadingView(isVisible: show)
                 case .showError(let error):
-                    print(error)
+                    self?.showError(error)
                 }
             }
             .store(in: &cancellables)
@@ -138,6 +144,14 @@ private extension LocationDetailViewController {
             .last
         else { return nil }
         return Int(id)
+    }
+    
+    func showError(_ error: Error) {
+        titleLabel.isHidden = true
+        planetInfo.isHidden = true
+        charactersListView.isHidden = true
+        errorView.setErrorDescription(error.localizedDescription)
+        scrollableStackView.addArrangedSubviews(errorView)
     }
 }
 

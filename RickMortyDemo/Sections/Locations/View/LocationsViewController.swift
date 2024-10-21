@@ -37,6 +37,13 @@ final class LocationsViewController: UIViewController {
         return collection
     }()
     
+    private lazy var errorView: ErrorView = {
+        let error = ErrorView()
+        error.translatesAutoresizingMaskIntoConstraints = false
+        error.isHidden = true
+        return error
+    }()
+    
     private let dependencies: LocationsDependenciesResolver
     private let viewModel: LocationsViewModel
     private var cancellables = [AnyCancellable]()
@@ -112,6 +119,7 @@ private extension LocationsViewController {
         view.backgroundColor = Colors.rmGreen
         navigationItem.titleView = titleImage
         view.addSubview(collectionView)
+        view.addSubview(errorView)
         setupConstraints()
     }
     
@@ -120,6 +128,11 @@ private extension LocationsViewController {
             $0.top == view.safeAreaLayoutGuide.topAnchor + 16.0
             $0 -|- (view + 16.0)
             $0.bottom == view.safeAreaLayoutGuide.bottomAnchor
+        }
+        
+        errorView.layout {
+            $0.top == view.safeAreaLayoutGuide.topAnchor + 16.0
+            $0 -|- (view + 16.0)
         }
     }
     
@@ -136,7 +149,7 @@ private extension LocationsViewController {
                 case .showLoading(let show):
                     self?.showLoadingView(isVisible: show)
                 case .showError(let error):
-                    print(error)
+                    self?.showError(error)
                 }
             }
             .store(in: &cancellables)
@@ -145,6 +158,12 @@ private extension LocationsViewController {
     func setupLocations(_ locations: [Location]) {
         self.locations.append(contentsOf: locations)
         collectionView.reloadData()
+    }
+    
+    func showError(_ error: Error) {
+        collectionView.isHidden = true
+        errorView.isHidden = false
+        errorView.setErrorDescription(error.localizedDescription)
     }
 }
 
