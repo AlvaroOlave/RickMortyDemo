@@ -94,6 +94,22 @@ final class ScrollableStackView: UIView {
         self.scrollView.setContentOffset(point, animated: animated)
     }
     
+    func removeAll() {
+        stackView.arrangedSubviews.forEach {
+            stackView.removeArrangedSubview($0)
+            $0.removeFromSuperview()
+        }
+    }
+    
+    func removeAll<T>(ofType: T.Type) {
+        stackView.arrangedSubviews.forEach {
+            if $0 is T {
+                stackView.removeArrangedSubview($0)
+                $0.removeFromSuperview()
+            }
+        }
+    }
+    
     var frameLayoutGuide: UILayoutGuide {
         self.scrollView.frameLayoutGuide
     }

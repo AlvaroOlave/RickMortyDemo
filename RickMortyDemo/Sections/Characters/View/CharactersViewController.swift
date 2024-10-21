@@ -39,11 +39,20 @@ final class CharactersViewController: UIViewController {
         return label
     }()
     
+    private lazy var searchBarCell: SearchBarCell = {
+        let view = SearchBarCell()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isHidden = true
+        return view
+    }()
+    
     private lazy var errorView: ErrorView = {
         let error = ErrorView()
         error.translatesAutoresizingMaskIntoConstraints = false
         return error
     }()
+    
+    private var searchTerm: String = ""
     
     private let dependencies: CharactersDependenciesResolver
     private let viewModel: CharactersViewModel
@@ -93,7 +102,14 @@ private extension CharactersViewController {
         navigationItem.titleView = titleImage
         view.addSubview(containerView)
         scrollableStackView.addArrangedSubviews(titleLabel)
+        scrollableStackView.addArrangedSubviews(searchBarCell)
         setupConstraints()
+        setupFilterButton()
+        
+        searchBarCell.$searchText
+            .sink { [weak self] searchText in
+                self?.updateSearchTerm(searchText)
+            }.store(in: &cancellables)
     }
     
     func setupConstraints() {
@@ -105,6 +121,23 @@ private extension CharactersViewController {
         
         titleLabel.layout {
             $0.height == 40.0
+        }
+    }
+    
+    func setupFilterButton() {
+        let filterButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.3.horizontal.decrease.circle")?.withRenderingMode(.alwaysTemplate),
+                                                style: .plain,
+                                                target: self,
+                                                action: #selector(showFilter))
+        filterButtonItem.tintColor = Colors.rmBlue
+        
+        navigationItem.setRightBarButton(filterButtonItem, animated: false)
+    }
+    
+    @objc func showFilter() {
+        UIView.animate(withDuration: 0.2) {
+            self.searchBarCell.isHidden.toggle()
+            self.scrollableStackView.stackView.layoutIfNeeded()
         }
     }
     
@@ -129,8 +162,11 @@ private extension CharactersViewController {
     
     func setupNewCharacterViews(_ characters: [[Character]]) {
         self.characters.append(contentsOf: characters)
-        
-        characters.forEach { row in
+        createView()
+    }
+    
+    func createView() {
+        filteredCharacters(characters).forEach { row in
             if row.count == 1, let character = row.first {
                 let singleCell = MainCharacterCell(character: character)
                 singleCell.$selectedCharacter
@@ -151,6 +187,23 @@ private extension CharactersViewController {
                 scrollableStackView.addArrangedSubviews(cell)
             }
         }
+    }
+    
+    func filteredCharacters(_ characters: [[Character]]) -> [[Character]] {
+        guard !searchTerm.isEmpty else { return characters }
+        return characters.compactMap { row in
+            let newRow = row.filter( { $0.name.range(of: searchTerm, options: .caseInsensitive) != nil  } )
+            return newRow.isEmpty ? nil : newRow
+        }
+    }
+    
+    func updateSearchTerm(_ term: String?) {
+        guard let term = term else { return }
+        print(term)
+        scrollableStackView.removeAll(ofType: MainCharacterCell.self)
+        scrollableStackView.removeAll(ofType: SideCharactersCell.self)
+        searchTerm = term
+        createView()
     }
     
     func showError(_ error: Error) {
