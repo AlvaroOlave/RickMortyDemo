@@ -45,6 +45,10 @@ final class EpisodesViewModel {
         guard !isLoading, hasMore else { return }
         loadEpisodes()
     }
+    
+    func goToCharacter(_ id: Int) {
+        coordinator?.goToCharacter(id)
+    }
 }
 
 private extension EpisodesViewModel {

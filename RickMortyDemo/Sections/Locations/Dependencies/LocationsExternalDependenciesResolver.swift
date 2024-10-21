@@ -12,6 +12,7 @@ import UIKit
 protocol LocationsExternalDependenciesResolver {
     
     func locationsCoordinator() -> Coordinator
+    func locationDetailCoordinator() -> BindableCoordinator
     func locationsNavigationController() -> UINavigationController
     
     func resolve() -> LocationUseCase

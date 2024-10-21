@@ -12,6 +12,7 @@ import UIKit
 protocol EpisodesExternalDependenciesResolver {
     
     func episodesCoordinator() -> Coordinator
+    func characterDetailCoordinator() -> BindableCoordinator
     func episodesNavigationController() -> UINavigationController
     
     func resolve() -> EpisodeUseCase

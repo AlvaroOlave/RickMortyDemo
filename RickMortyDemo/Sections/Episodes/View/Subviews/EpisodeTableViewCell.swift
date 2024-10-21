@@ -50,6 +50,12 @@ final class EpisodeTableViewCell: UITableViewCell {
         titleLabel.text = "\(episode.episode): \(episode.name)"
         onAirLabel.text = episode.air_date
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleLabel.text = ""
+        onAirLabel.text = ""
+    }
 }
 
 private extension EpisodeTableViewCell {

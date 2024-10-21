@@ -113,7 +113,7 @@ private extension CharactersViewController {
                 case .addCharacters(let characters):
                     self?.setupNewCharacterViews(characters)
                 case .showLoading(let show):
-                    print(show)
+                    self?.showLoadingView(isVisible: show)
                 case .showError(let error):
                     print(error)
                 }
@@ -147,3 +147,5 @@ private extension CharactersViewController {
         }
     }
 }
+
+extension CharactersViewController: LoadingCapable {}

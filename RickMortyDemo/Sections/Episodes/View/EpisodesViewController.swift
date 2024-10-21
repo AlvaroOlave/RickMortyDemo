@@ -24,7 +24,6 @@ final class EpisodesViewController: UIViewController {
         table.register(EpisodeTableViewCell.self, forCellReuseIdentifier: "EpisodeTableViewCell")
         table.dataSource = self
         table.delegate = self
-        
         table.backgroundColor = .clear
         table.layer.cornerRadius = 8.0
         table.bounces = false
@@ -61,7 +60,7 @@ final class EpisodesViewController: UIViewController {
     }
 }
 
-extension EpisodesViewController: UITableViewDataSource {
+extension EpisodesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         episodes.count
     }
@@ -76,11 +75,9 @@ extension EpisodesViewController: UITableViewDataSource {
         cell.setEpisode(episodes[indexPath.row])
         return cell
     }
-}
-
-extension EpisodesViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.width, height: 50))
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50))
         
         let label = UILabel()
         label.text = "Episodes"
@@ -92,6 +89,14 @@ extension EpisodesViewController: UITableViewDelegate {
         label.fill(headerView)
         
         return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        showEpisodeDetail(episodes[indexPath.row])
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
 }
 
@@ -123,11 +128,23 @@ private extension EpisodesViewController {
                     self?.episodes.append(contentsOf: episodes)
                     self?.tableView.reloadData()
                 case .showLoading(let show):
-                    print(show)
+                    self?.showLoadingView(isVisible: show)
                 case .showError(let error):
                     print(error)
                 }
             }
             .store(in: &cancellables)
     }
+    
+    func showEpisodeDetail(_ episode: Episode) {
+        let episodePopup = EpisodePopup(episode)
+        episodePopup.presentIn(view)
+        episodePopup.$selectedCharacter
+            .sink { [weak self] id in
+                guard let id = id else { return }
+                self?.viewModel.goToCharacter(id)
+            }.store(in: &cancellables)
+    }
 }
+
+extension EpisodesViewController: LoadingCapable {}

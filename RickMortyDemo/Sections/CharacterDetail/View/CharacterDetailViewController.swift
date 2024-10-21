@@ -142,7 +142,7 @@ private extension CharacterDetailViewController {
                 case .showCharacter(let character):
                     self?.setupCharacter(character)
                 case .showLoading(let show):
-                    print(show)
+                    self?.showLoadingView(isVisible: show)
                 case .showError(let error):
                     print(error)
                 case .showEpisode(let episode):
@@ -213,6 +213,8 @@ private extension CharacterDetailViewController {
         viewModel.goToCharacter(id)
     }
 }
+
+extension CharacterDetailViewController: LoadingCapable {}
 
 final class LocationTapGesture: UITapGestureRecognizer {
     let id: Int?

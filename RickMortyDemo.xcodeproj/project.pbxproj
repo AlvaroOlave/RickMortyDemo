@@ -44,6 +44,10 @@
 		041BA5DD2CC5B860002040B8 /* EpisodePopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA5DC2CC5B860002040B8 /* EpisodePopup.swift */; };
 		041BA5E02CC5C24C002040B8 /* CharactersListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA5DF2CC5C24C002040B8 /* CharactersListCell.swift */; };
 		041BA5E22CC5C2D0002040B8 /* CharactersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA5E12CC5C2D0002040B8 /* CharactersListView.swift */; };
+		041BA5E52CC649E1002040B8 /* LocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA5E42CC649E1002040B8 /* LocationCollectionViewCell.swift */; };
+		041BA5E72CC650C9002040B8 /* LocationCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA5E62CC650C9002040B8 /* LocationCollectionHeader.swift */; };
+		041BA5EA2CC657B1002040B8 /* LoadingDots in Frameworks */ = {isa = PBXBuildFile; productRef = 041BA5E92CC657B1002040B8 /* LoadingDots */; };
+		041BA5ED2CC657C9002040B8 /* LoadingCapable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041BA5EC2CC657C9002040B8 /* LoadingCapable.swift */; };
 		043FC9BE2CC2B46B00BE28AD /* ScrollableStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043FC9BD2CC2B46B00BE28AD /* ScrollableStackView.swift */; };
 		043FC9C12CC2B6E400BE28AD /* SharedDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043FC9C02CC2B6E400BE28AD /* SharedDependencies.swift */; };
 		043FC9C42CC2B76E00BE28AD /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043FC9C32CC2B76E00BE28AD /* Coordinator.swift */; };
@@ -139,6 +143,9 @@
 		041BA5DC2CC5B860002040B8 /* EpisodePopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodePopup.swift; sourceTree = "<group>"; };
 		041BA5DF2CC5C24C002040B8 /* CharactersListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersListCell.swift; sourceTree = "<group>"; };
 		041BA5E12CC5C2D0002040B8 /* CharactersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersListView.swift; sourceTree = "<group>"; };
+		041BA5E42CC649E1002040B8 /* LocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCollectionViewCell.swift; sourceTree = "<group>"; };
+		041BA5E62CC650C9002040B8 /* LocationCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCollectionHeader.swift; sourceTree = "<group>"; };
+		041BA5EC2CC657C9002040B8 /* LoadingCapable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCapable.swift; sourceTree = "<group>"; };
 		043FC9BD2CC2B46B00BE28AD /* ScrollableStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableStackView.swift; sourceTree = "<group>"; };
 		043FC9C02CC2B6E400BE28AD /* SharedDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDependencies.swift; sourceTree = "<group>"; };
 		043FC9C32CC2B76E00BE28AD /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -188,6 +195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				043FCA092CC42A9500BE28AD /* AutolayoutDSL in Frameworks */,
+				041BA5EA2CC657B1002040B8 /* LoadingDots in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,6 +406,15 @@
 			path = EpisodePopup;
 			sourceTree = "<group>";
 		};
+		041BA5E32CC64961002040B8 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				041BA5E42CC649E1002040B8 /* LocationCollectionViewCell.swift */,
+				041BA5E62CC650C9002040B8 /* LocationCollectionHeader.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		043FC9BB2CC2B44E00BE28AD /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -415,6 +432,7 @@
 				043FCA0A2CC42E8900BE28AD /* Constants.swift */,
 				041BA5A62CC543F0002040B8 /* ImageLoader.swift */,
 				041BA5A82CC54800002040B8 /* NavigationTitleIcon.swift */,
+				041BA5EC2CC657C9002040B8 /* LoadingCapable.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -534,6 +552,7 @@
 		043FC9E52CC415B100BE28AD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				041BA5E32CC64961002040B8 /* Subviews */,
 				043FC9DA2CC4156F00BE28AD /* LocationsViewController.swift */,
 			);
 			path = View;
@@ -734,6 +753,7 @@
 			name = RickMortyDemo;
 			packageProductDependencies = (
 				043FCA082CC42A9500BE28AD /* AutolayoutDSL */,
+				041BA5E92CC657B1002040B8 /* LoadingDots */,
 			);
 			productName = RickMortyDemo;
 			productReference = 047875632CC2B094003CF29E /* RickMortyDemo.app */;
@@ -809,6 +829,7 @@
 			mainGroup = 0478755A2CC2B094003CF29E;
 			packageReferences = (
 				043FCA072CC42A9500BE28AD /* XCRemoteSwiftPackageReference "AutoLayoutDSL" */,
+				041BA5E82CC657B1002040B8 /* XCRemoteSwiftPackageReference "LoadingDots" */,
 			);
 			productRefGroup = 047875642CC2B094003CF29E /* Products */;
 			projectDirPath = "";
@@ -855,6 +876,7 @@
 			files = (
 				041BA5BF2CC575BE002040B8 /* CharacterDetailViewController.swift in Sources */,
 				043FC9DE2CC4156F00BE28AD /* LocationsExternalDependenciesResolver.swift in Sources */,
+				041BA5E52CC649E1002040B8 /* LocationCollectionViewCell.swift in Sources */,
 				041BA5A72CC543F0002040B8 /* ImageLoader.swift in Sources */,
 				041BA5A92CC54800002040B8 /* NavigationTitleIcon.swift in Sources */,
 				041BA5992CC46651002040B8 /* EpisodeRepository.swift in Sources */,
@@ -905,6 +927,7 @@
 				043FC9DF2CC4156F00BE28AD /* LocationsViewController.swift in Sources */,
 				041BA5DB2CC5B012002040B8 /* EpisodesListCell.swift in Sources */,
 				043FCA122CC4345100BE28AD /* Character.swift in Sources */,
+				041BA5ED2CC657C9002040B8 /* LoadingCapable.swift in Sources */,
 				043FC9C12CC2B6E400BE28AD /* SharedDependencies.swift in Sources */,
 				041BA5822CC43E53002040B8 /* CompleteResponse.swift in Sources */,
 				041BA5842CC43EB6002040B8 /* Repository.swift in Sources */,
@@ -917,6 +940,7 @@
 				041BA5B62CC55B9F002040B8 /* CharacterCell.swift in Sources */,
 				047875692CC2B094003CF29E /* SceneDelegate.swift in Sources */,
 				041BA58C2CC45720002040B8 /* Config.swift in Sources */,
+				041BA5E72CC650C9002040B8 /* LocationCollectionHeader.swift in Sources */,
 				043FCA0B2CC42E8900BE28AD /* Constants.swift in Sources */,
 				041BA5A52CC52779002040B8 /* EpisodeTableViewCell.swift in Sources */,
 				041BA5E22CC5C2D0002040B8 /* CharactersListView.swift in Sources */,
@@ -1261,6 +1285,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		041BA5E82CC657B1002040B8 /* XCRemoteSwiftPackageReference "LoadingDots" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AlvaroOlave/LoadingDots";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.2;
+			};
+		};
 		043FCA072CC42A9500BE28AD /* XCRemoteSwiftPackageReference "AutoLayoutDSL" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AlvaroOlave/AutoLayoutDSL";
@@ -1272,6 +1304,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		041BA5E92CC657B1002040B8 /* LoadingDots */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 041BA5E82CC657B1002040B8 /* XCRemoteSwiftPackageReference "LoadingDots" */;
+			productName = LoadingDots;
+		};
 		043FCA082CC42A9500BE28AD /* AutolayoutDSL */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 043FCA072CC42A9500BE28AD /* XCRemoteSwiftPackageReference "AutoLayoutDSL" */;

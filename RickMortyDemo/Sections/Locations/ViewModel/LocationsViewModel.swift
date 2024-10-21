@@ -29,6 +29,7 @@ final class LocationsViewModel {
     }()
     
     private var isLoading = false
+    private var hasMore = true
     
     @Published var state: LocationsState = .idle
     
@@ -42,8 +43,12 @@ final class LocationsViewModel {
     }
     
     func loadMoreLocations() {
-        guard !isLoading else { return }
+        guard !isLoading, hasMore else { return }
         loadLocations()
+    }
+    
+    func goToLocation(_ location: Location) {
+        coordinator?.goToLocation(location)
     }
 }
 
@@ -53,6 +58,7 @@ private extension LocationsViewModel {
             isLoading = true
             do {
                 let locations = try await locationsUseCase.getLocations()
+                hasMore = !locations.isEmpty
                 state = .addLocations(locations)
                 state = .showLoading(false)
                 isLoading = false

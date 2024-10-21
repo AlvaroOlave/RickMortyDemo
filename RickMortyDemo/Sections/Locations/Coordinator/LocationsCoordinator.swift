@@ -9,7 +9,7 @@
 import UIKit
 
 protocol LocationsCoordinator: Coordinator {
-    
+    func goToLocation(_ location: Location)
 }
 
 final class LocationsCoordinatorImpl: Coordinator {
@@ -36,7 +36,14 @@ final class LocationsCoordinatorImpl: Coordinator {
 }
 
 extension LocationsCoordinatorImpl: LocationsCoordinator {
-    
+    func goToLocation(_ location: Location) {
+        let coordinator = dependencies.external.locationDetailCoordinator()
+        coordinator
+            .set(navigationController)
+            .set(location)
+            .start()
+        append(child: coordinator)
+    }
 }
 
 private extension LocationsCoordinatorImpl {

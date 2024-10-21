@@ -9,7 +9,7 @@
 import UIKit
 
 protocol EpisodesCoordinator: Coordinator {
-    
+    func goToCharacter(_ id: Int)
 }
 
 final class EpisodesCoordinatorImpl: Coordinator {
@@ -36,7 +36,14 @@ final class EpisodesCoordinatorImpl: Coordinator {
 }
 
 extension EpisodesCoordinatorImpl: EpisodesCoordinator {
-    
+    func goToCharacter(_ id: Int) {
+        let coordinator = dependencies.external.characterDetailCoordinator()
+        coordinator
+            .set(navigationController)
+            .set(id)
+            .start()
+        append(child: coordinator)
+    }
 }
 
 private extension EpisodesCoordinatorImpl {

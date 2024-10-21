@@ -76,8 +76,6 @@ final class LocationDetailViewController: UIViewController {
     }
 }
 
-extension LocationDetailViewController {}
-
 private extension LocationDetailViewController {
     func setupView() {
         view.backgroundColor = Colors.rmGreen
@@ -114,7 +112,7 @@ private extension LocationDetailViewController {
                 case .showLocation(let location):
                     self?.setupLocation(location)
                 case .showLoading(let show):
-                    print(show)
+                    self?.showLoadingView(isVisible: show)
                 case .showError(let error):
                     print(error)
                 }
@@ -142,3 +140,5 @@ private extension LocationDetailViewController {
         return Int(id)
     }
 }
+
+extension LocationDetailViewController: LoadingCapable {}
