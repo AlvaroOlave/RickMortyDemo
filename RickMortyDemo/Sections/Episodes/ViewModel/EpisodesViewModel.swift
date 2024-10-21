@@ -28,8 +28,8 @@ final class EpisodesViewModel {
         dependencies.resolve()
     }()
     
-    private var isLoading = false
-    private var hasMore = true
+    internal var isLoading = false
+    internal var hasMore = true
     @Published var state: EpisodesState = .idle
     
     init(dependencies: EpisodesDependenciesResolver) {

@@ -28,8 +28,8 @@ final class CharactersViewModel {
         dependencies.resolve()
     }()
     
-    private var isLoading = false
-    private var hasMore = true
+    internal var isLoading = false
+    internal var hasMore = true
     
     @Published var state: CharactersState = .idle
     
@@ -90,16 +90,5 @@ private extension CharactersViewModel {
             grouped.append(pairBuffer)
         }
         state = .addCharacters(grouped)
-    }
-}
-
-
-extension Array {
-    func splitInPairs() -> [(Element, Element?)] {
-        return stride(from: 0, to: self.count, by: 2)
-            .map {
-                guard self.count > $0 + 1 else { return (self[$0], nil) }
-                return (self[$0], self[$0 + 1])
-            }
     }
 }
