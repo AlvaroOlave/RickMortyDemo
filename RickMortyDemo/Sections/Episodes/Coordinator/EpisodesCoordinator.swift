@@ -23,7 +23,7 @@ final class EpisodesCoordinatorImpl: Coordinator {
                    coordinator: self)
     }()
     
-    public init(dependencies: EpisodesExternalDependenciesResolver,
+    init(dependencies: EpisodesExternalDependenciesResolver,
                 navigationController: UINavigationController?) {
         self.navigationController = navigationController
         self.externalDependencies = dependencies

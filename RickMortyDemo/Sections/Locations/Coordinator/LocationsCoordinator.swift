@@ -23,7 +23,7 @@ final class LocationsCoordinatorImpl: Coordinator {
                    coordinator: self)
     }()
     
-    public init(dependencies: LocationsExternalDependenciesResolver,
+    init(dependencies: LocationsExternalDependenciesResolver,
                 navigationController: UINavigationController?) {
         self.navigationController = navigationController
         self.externalDependencies = dependencies

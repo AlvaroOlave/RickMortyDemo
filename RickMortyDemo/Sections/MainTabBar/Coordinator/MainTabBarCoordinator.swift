@@ -23,7 +23,7 @@ final class MainTabBarCoordinatorImpl: Coordinator {
                    coordinator: self)
     }()
     
-    public init(dependencies: MainTabBarExternalDependenciesResolver) {
+    init(dependencies: MainTabBarExternalDependenciesResolver) {
         self.externalDependencies = dependencies
     }
 

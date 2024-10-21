@@ -12,6 +12,7 @@ import UIKit
 protocol CharactersExternalDependenciesResolver {
     
     func charactersCoordinator() -> Coordinator
+    func characterDetailCoordinator() -> BindableCoordinator
     func charactersNavigationController() -> UINavigationController
     
     func resolve() -> CharacterUseCase

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CharactersCoordinator: Coordinator {
-    
+    func goToDetail(_ character: Character)
 }
 
 final class CharactersCoordinatorImpl: Coordinator {
@@ -23,7 +23,7 @@ final class CharactersCoordinatorImpl: Coordinator {
                    coordinator: self)
     }()
     
-    public init(dependencies: CharactersExternalDependenciesResolver,
+    init(dependencies: CharactersExternalDependenciesResolver,
                 navigationController: UINavigationController?) {
         self.navigationController = navigationController
         self.externalDependencies = dependencies
@@ -36,7 +36,14 @@ final class CharactersCoordinatorImpl: Coordinator {
 }
 
 extension CharactersCoordinatorImpl: CharactersCoordinator {
-    
+    func goToDetail(_ character: Character) {
+        let coordinator = dependencies.external.characterDetailCoordinator()
+        coordinator
+            .set(navigationController)
+            .set(character)
+            .start()
+        append(child: coordinator)
+    }
 }
 
 private extension CharactersCoordinatorImpl {

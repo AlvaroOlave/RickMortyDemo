@@ -9,4 +9,22 @@
 import UIKit
 import AutolayoutDSL
 
-final class MainCharacterCell: CharacterCell { }
+final class MainCharacterCell: CharacterCell { 
+    
+    @Published var selectedCharacter: Character?
+    
+    private let character: Character
+    
+    override init(character: Character) {
+        self.character = character
+        super.init(character: character)
+        
+        self.isUserInteractionEnabled = true
+        self.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                         action: #selector(selectCharacter)))
+    }
+    
+    @objc func selectCharacter() {
+        selectedCharacter = character
+    }
+}

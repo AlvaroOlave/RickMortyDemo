@@ -65,7 +65,6 @@ private extension EpisodeTableViewCell {
     func setupConstraints() {
         titleLabel.layout {
             $0.top == topAnchor + 16.0
-            
             $0.leading == leadingAnchor + 16.0
             $0.trailing == goToDetailIcon.leadingAnchor - 8.0
         }

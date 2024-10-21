@@ -7,22 +7,29 @@
 
 import UIKit
 import AutolayoutDSL
+import Combine
 
 final class SideCharactersCell: UIView {
     private lazy var leftCharacterCell: CharacterCell = {
         let view = CharacterCell(character: leftCharacter)
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                         action: #selector(selectLeft)))
         return view
     }()
     
     private lazy var rightCharacterCell: CharacterCell = {
         let view = CharacterCell(character: rightCharacter)
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                         action: #selector(selectRight)))
         return view
     }()
     
     private let leftCharacter: Character
     private let rightCharacter: Character
+    
+    @Published var selectedCharacter: Character?
     
     init(leftCharacter: Character, rightCharacter: Character) {
         self.leftCharacter = leftCharacter
@@ -58,5 +65,13 @@ private extension SideCharactersCell {
             $0.height == (leftCharacterCell.widthAnchor * 1.5)
             $0 |-| self
         }
+    }
+    
+    @objc func selectLeft() {
+        selectedCharacter = leftCharacter
+    }
+    
+    @objc func selectRight() {
+        selectedCharacter = rightCharacter
     }
 }

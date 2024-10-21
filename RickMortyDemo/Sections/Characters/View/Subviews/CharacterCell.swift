@@ -11,12 +11,12 @@ import AutolayoutDSL
 
 class CharacterCell: UIView {
     
-    private lazy var placeHolder: UIImage? = {
+    private lazy var placeholder: UIImage? = {
         UIImage(named: "rmPlaceholder")
     }()
     
     private lazy var image: UIImageView = {
-        let image = UIImageView(image: placeHolder)
+        let image = UIImageView(image: placeholder)
         image.translatesAutoresizingMaskIntoConstraints = false
         image.layer.cornerRadius = 8.0
         image.clipsToBounds = true
@@ -134,7 +134,7 @@ private extension CharacterCell {
     func setupCharacter(_ character: Character) {
         if let url = URL(string: character.image) {
             ImageLoader.shared.loadImage(from: url,
-                                         placeholder: placeHolder) { [weak self] img in
+                                         placeholder: placeholder) { [weak self] img in
                 self?.image.image = img
             }
         }

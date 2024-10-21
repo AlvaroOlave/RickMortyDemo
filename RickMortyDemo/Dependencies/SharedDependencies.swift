@@ -43,4 +43,6 @@ extension SharedDependencies:
     MainTabBarExternalDependenciesResolver,
     CharactersExternalDependenciesResolver,
     LocationsExternalDependenciesResolver,
-    EpisodesExternalDependenciesResolver {}
+    EpisodesExternalDependenciesResolver,
+    CharacterDetailExternalDependenciesResolver,
+    LocationDetailExternalDependenciesResolver{}

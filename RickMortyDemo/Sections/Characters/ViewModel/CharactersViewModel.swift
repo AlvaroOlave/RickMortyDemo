@@ -46,6 +46,10 @@ final class CharactersViewModel {
         guard !isLoading && hasMore else { return }
         loadCharacters()
     }
+    
+    func goToDetail(_ character: Character) {
+        coordinator?.goToDetail(character)
+    }
 }
 
 private extension CharactersViewModel {

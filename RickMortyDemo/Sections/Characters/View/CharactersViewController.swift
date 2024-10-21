@@ -126,9 +126,23 @@ private extension CharactersViewController {
         
         characters.forEach { row in
             if row.count == 1, let character = row.first {
-                scrollableStackView.addArrangedSubviews(MainCharacterCell(character: character))
+                let singleCell = MainCharacterCell(character: character)
+                singleCell.$selectedCharacter
+                    .sink { [weak self] character in
+                        guard let character = character else { return }
+                        self?.viewModel.goToDetail(character)
+                    }
+                    .store(in: &cancellables)
+                scrollableStackView.addArrangedSubviews(singleCell)
             } else if row.count == 2 {
-                scrollableStackView.addArrangedSubviews(SideCharactersCell(leftCharacter: row[0], rightCharacter: row[1]))
+                let cell = SideCharactersCell(leftCharacter: row[0], rightCharacter: row[1])
+                cell.$selectedCharacter
+                    .sink { [weak self] character in
+                        guard let character = character else { return }
+                        self?.viewModel.goToDetail(character)
+                    }
+                    .store(in: &cancellables)
+                scrollableStackView.addArrangedSubviews(cell)
             }
         }
     }
