@@ -9,9 +9,9 @@ import UIKit
 import AutolayoutDSL
 import Combine
 
-final class SideCharactersCell: UIView {
+final class SideCharactersCell: UITableViewCell {
     private lazy var leftCharacterCell: CharacterCell = {
-        let view = CharacterCell(character: leftCharacter)
+        let view = CharacterCell()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.addGestureRecognizer(UITapGestureRecognizer(target: self,
                                                          action: #selector(selectLeft)))
@@ -19,22 +19,21 @@ final class SideCharactersCell: UIView {
     }()
     
     private lazy var rightCharacterCell: CharacterCell = {
-        let view = CharacterCell(character: rightCharacter)
+        let view = CharacterCell()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.addGestureRecognizer(UITapGestureRecognizer(target: self,
                                                          action: #selector(selectRight)))
         return view
     }()
     
-    private let leftCharacter: Character
-    private let rightCharacter: Character
+    private var leftCharacter: Character?
+    private var rightCharacter: Character?
     
     @Published var selectedCharacter: Character?
+    var cancellable: AnyCancellable?
     
-    init(leftCharacter: Character, rightCharacter: Character) {
-        self.leftCharacter = leftCharacter
-        self.rightCharacter = rightCharacter
-        super.init(frame: .zero)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
     }
     
@@ -42,28 +41,47 @@ final class SideCharactersCell: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        cancellable?.cancel()
+        cancellable = nil
+        selectedCharacter = nil
+        leftCharacterCell.prepareForReuse()
+        rightCharacterCell.prepareForReuse()
+    }
+    
+    func setCharacters(_ left: Character, _ right: Character) {
+        self.leftCharacter = left
+        self.rightCharacter = right
+        leftCharacterCell.setCharacter(left)
+        rightCharacterCell.setCharacter(right)
+    }
 }
 
 private extension SideCharactersCell {
     func setupView() {
-        addSubview(leftCharacterCell)
-        addSubview(rightCharacterCell)
+        selectionStyle = .none
+        backgroundColor = .clear
+        
+        contentView.addSubview(leftCharacterCell)
+        contentView.addSubview(rightCharacterCell)
         setupConstraints()
     }
     
     func setupConstraints() {
         leftCharacterCell.layout {
-            $0.leading == leadingAnchor
-            $0.trailing == centerXAnchor - 4.0
-            $0.height == (leftCharacterCell.widthAnchor * 1.5)
-            $0 |-| self
+            $0.leading == contentView.leadingAnchor
+            $0.trailing == contentView.centerXAnchor - 4.0
+            $0.height == (leftCharacterCell.widthAnchor * 1.5) ~ .defaultHigh
+            $0 |-| (contentView + 4.0)
         }
         
         rightCharacterCell.layout {
-            $0.leading == centerXAnchor + 4.0
-            $0.trailing == trailingAnchor
-            $0.height == (leftCharacterCell.widthAnchor * 1.5)
-            $0 |-| self
+            $0.leading == contentView.centerXAnchor + 4.0
+            $0.trailing == contentView.trailingAnchor
+            $0.height == (leftCharacterCell.widthAnchor * 1.5) ~ .defaultHigh
+            $0 |-| (contentView + 4.0)
         }
     }
     

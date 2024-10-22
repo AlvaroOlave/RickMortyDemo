@@ -18,16 +18,32 @@ final class CharactersViewController: UIViewController {
         return image
     }()
     
-    private lazy var containerView: UIView = {
-        return UIView()
+    private lazy var tableView: UITableView = {
+        let table = UITableView(frame: .zero, style: .insetGrouped)
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.register(MainCharacterCell.self, forCellReuseIdentifier: "MainCharacterCell")
+        table.register(SideCharactersCell.self, forCellReuseIdentifier: "SideCharactersCell")
+        table.dataSource = self
+        table.delegate = self
+        table.prefetchDataSource = self
+        table.backgroundColor = .clear
+        table.layer.cornerRadius = 8.0
+        table.separatorStyle = .none
+        table.bounces = false
+        return table
     }()
     
-    private lazy var scrollableStackView: ScrollableStackView = {
-        let view = ScrollableStackView()
-        view.setSpacing(8.0)
-        view.setup(with: self.containerView)
-        view.setScrollDelegate(self)
-        return view
+    private lazy var titleView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, searchBarCell])
+        stackView.translatesAutoresizingMaskIntoConstraints = true
+        stackView.axis = .vertical
+        stackView.spacing = 0
+        stackView.layoutMargins = UIEdgeInsets(top: 0,
+                                               left: 8.0,
+                                               bottom: 0,
+                                               right: 8.0)
+        stackView.isLayoutMarginsRelativeArrangement = true
+        return stackView
     }()
     
     private lazy var titleLabel: UILabel = {
@@ -49,6 +65,7 @@ final class CharactersViewController: UIViewController {
     private lazy var errorView: ErrorView = {
         let error = ErrorView()
         error.translatesAutoresizingMaskIntoConstraints = false
+        error.isHidden = true
         return error
     }()
     
@@ -59,6 +76,7 @@ final class CharactersViewController: UIViewController {
     private var cancellables = [AnyCancellable]()
     
     private var characters: [[Character]] = []
+    private var filteredCharacters: [[Character]] = []
     
     init(dependencies: CharactersDependenciesResolver) {
         self.dependencies = dependencies
@@ -84,25 +102,12 @@ final class CharactersViewController: UIViewController {
     }
 }
 
-extension CharactersViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offset = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
-        let scrollheight = scrollView.frame.size.height
-        
-        if offset > contentHeight - scrollheight * 2 {
-            viewModel.loadMoreCharacters()
-        }
-    }
-}
-
 private extension CharactersViewController {
     func setupView() {
         view.backgroundColor = Colors.rmGreen
         navigationItem.titleView = titleImage
-        view.addSubview(containerView)
-        scrollableStackView.addArrangedSubviews(titleLabel)
-        scrollableStackView.addArrangedSubviews(searchBarCell)
+        view.addSubview(tableView)
+        view.addSubview(errorView)
         setupConstraints()
         setupFilterButton()
         
@@ -113,14 +118,27 @@ private extension CharactersViewController {
     }
     
     func setupConstraints() {
-        containerView.layout {
-            $0 -|- (view + 16.0)
+        let h = titleLabel.heightAnchor.constraint(equalToConstant: 40.0)
+        h.priority = .defaultHigh
+        h.isActive = true
+        
+        let searchHeight = searchBarCell.heightAnchor.constraint(equalToConstant: 40.0)
+        searchHeight.priority = .defaultHigh
+        searchHeight.isActive = true
+//        titleLabel.layout {
+//            $0.height == 40.0
+//        }
+//        searchBarCell.layout {
+//            $0.height == 40.0
+//        }
+        tableView.layout {
+            $0 -|- view
             $0.top == view.safeAreaLayoutGuide.topAnchor
             $0.bottom == view.safeAreaLayoutGuide.bottomAnchor
         }
-        
-        titleLabel.layout {
-            $0.height == 40.0
+        errorView.layout {
+            $0.top == view.safeAreaLayoutGuide.topAnchor + 16.0
+            $0 -|- (view + 16.0)
         }
     }
     
@@ -135,10 +153,8 @@ private extension CharactersViewController {
     }
     
     @objc func showFilter() {
-        UIView.animate(withDuration: 0.2) {
-            self.searchBarCell.isHidden.toggle()
-            self.scrollableStackView.stackView.layoutIfNeeded()
-        }
+        self.searchBarCell.isHidden.toggle()
+        self.tableView.reloadRows(at: [], with: .top)
     }
     
     func bindViewModel() {
@@ -150,7 +166,7 @@ private extension CharactersViewController {
                 case .idle:
                     break
                 case .addCharacters(let characters):
-                    self?.setupNewCharacterViews(characters)
+                    self?.setupNewCharacter(characters)
                 case .showLoading(let show):
                     self?.showLoadingView(isVisible: show)
                 case .showError(let error):
@@ -160,36 +176,13 @@ private extension CharactersViewController {
             .store(in: &cancellables)
     }
     
-    func setupNewCharacterViews(_ characters: [[Character]]) {
+    func setupNewCharacter(_ characters: [[Character]]) {
         self.characters.append(contentsOf: characters)
-        createView()
+        self.filteredCharacters = filterCharacters(self.characters)
+        tableView.reloadData()
     }
     
-    func createView() {
-        filteredCharacters(characters).forEach { row in
-            if row.count == 1, let character = row.first {
-                let singleCell = MainCharacterCell(character: character)
-                singleCell.$selectedCharacter
-                    .sink { [weak self] character in
-                        guard let character = character else { return }
-                        self?.viewModel.goToDetail(character)
-                    }
-                    .store(in: &cancellables)
-                scrollableStackView.addArrangedSubviews(singleCell)
-            } else if row.count == 2 {
-                let cell = SideCharactersCell(leftCharacter: row[0], rightCharacter: row[1])
-                cell.$selectedCharacter
-                    .sink { [weak self] character in
-                        guard let character = character else { return }
-                        self?.viewModel.goToDetail(character)
-                    }
-                    .store(in: &cancellables)
-                scrollableStackView.addArrangedSubviews(cell)
-            }
-        }
-    }
-    
-    func filteredCharacters(_ characters: [[Character]]) -> [[Character]] {
+    func filterCharacters(_ characters: [[Character]]) -> [[Character]] {
         guard !searchTerm.isEmpty else { return characters }
         return characters.compactMap { row in
             let newRow = row.filter( { $0.name.range(of: searchTerm, options: .caseInsensitive) != nil  } )
@@ -199,18 +192,79 @@ private extension CharactersViewController {
     
     func updateSearchTerm(_ term: String?) {
         guard let term = term else { return }
-        print(term)
-        scrollableStackView.removeAll(ofType: MainCharacterCell.self)
-        scrollableStackView.removeAll(ofType: SideCharactersCell.self)
         searchTerm = term
-        createView()
+        filteredCharacters = filterCharacters(characters)
+        tableView.reloadData()
     }
     
     func showError(_ error: Error) {
         guard characters.isEmpty else { return }
         errorView.setErrorDescription(error.localizedDescription)
-        scrollableStackView.addArrangedSubviews(errorView)
+        tableView.isHidden = true
+        errorView.isHidden = false
     }
 }
 
 extension CharactersViewController: LoadingCapable {}
+
+extension CharactersViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        filteredCharacters.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let row = filteredCharacters[indexPath.row]
+        
+        if row.count == 1, let character = row.first {
+            return mainCharacterCell(tableView,
+                                     indexPath,
+                                     character)
+        } else if row.count == 2 {
+            return sideCharacterCell(tableView,
+                                     indexPath,
+                                     row[0],
+                                     row[1])
+        } else {
+            return UITableViewCell(frame: .zero)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return titleView
+    }
+    
+    func mainCharacterCell(_ tableView: UITableView, _ indexPath: IndexPath, _ character: Character) -> UITableViewCell {
+        guard let singleCell = tableView.dequeueReusableCell(withIdentifier: "MainCharacterCell", for: indexPath) as? MainCharacterCell
+        else { return UITableViewCell(frame: .zero) }
+            singleCell.setCharacter(character)
+            singleCell.cancellable = singleCell.$selectedCharacter
+                .sink { [weak self] character in
+                    guard let character = character else { return }
+                    self?.viewModel.goToDetail(character)
+                }
+            return singleCell
+    }
+    
+    func sideCharacterCell(_ tableView: UITableView, _ indexPath: IndexPath, _ left: Character,  _ right: Character) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SideCharactersCell", for: indexPath) as? SideCharactersCell
+        else { return UITableViewCell(frame: .zero) }
+        cell.setCharacters(left, right)
+        cell.cancellable = cell.$selectedCharacter
+            .sink { [weak self] character in
+                guard let character = character else { return }
+                self?.viewModel.goToDetail(character)
+            }
+        return cell
+    }
+}
+
+extension CharactersViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        let limitIndex = filteredCharacters.count - 5
+        
+        if indexPaths.contains(where: { $0.row >= limitIndex }) {
+            viewModel.loadMoreCharacters()
+        }
+    }
+}

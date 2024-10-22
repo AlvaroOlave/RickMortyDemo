@@ -76,15 +76,25 @@ class CharacterCell: UIView {
         return image
     }()
     
-    init(character: Character) {
+    init() {
         super.init(frame: .zero)
         setupView()
-        setupCharacter(character)
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setCharacter(_ character: Character) {
+        setupCharacter(character)
+    }
+    
+    func prepareForReuse() {
+        image.image = placeholder
+        nameLabel.text = ""
+        genderIcon.text = ""
+        aliveIcon.tintColor = .clear
     }
 }
 
