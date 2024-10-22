@@ -98,6 +98,9 @@
 		04A776362CC84A7E009B22E0 /* EpisodesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A776352CC84A7E009B22E0 /* EpisodesList.swift */; };
 		04A776382CC84A95009B22E0 /* EpisodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A776372CC84A95009B22E0 /* EpisodeCell.swift */; };
 		04A7763B2CC851F4009B22E0 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 04A7763A2CC851F4009B22E0 /* Localizable.xcstrings */; };
+		04A7763E2CC85CAC009B22E0 /* FilterCharactersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A7763D2CC85CAC009B22E0 /* FilterCharactersRepository.swift */; };
+		04A776402CC85E2A009B22E0 /* FilterCharactersUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A7763F2CC85E2A009B22E0 /* FilterCharactersUseCase.swift */; };
+		04A776422CC86163009B22E0 /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A776412CC86163009B22E0 /* FiltersView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -212,6 +215,9 @@
 		04A776372CC84A95009B22E0 /* EpisodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeCell.swift; sourceTree = "<group>"; };
 		04A776392CC8515E009B22E0 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		04A7763A2CC851F4009B22E0 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		04A7763D2CC85CAC009B22E0 /* FilterCharactersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCharactersRepository.swift; sourceTree = "<group>"; };
+		04A7763F2CC85E2A009B22E0 /* FilterCharactersUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCharactersUseCase.swift; sourceTree = "<group>"; };
+		04A776412CC86163009B22E0 /* FiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +260,7 @@
 			children = (
 				041BA57F2CC438CF002040B8 /* CharactersRepository.swift */,
 				041BA5922CC46521002040B8 /* CharacterRepository.swift */,
+				04A7763D2CC85CAC009B22E0 /* FilterCharactersRepository.swift */,
 			);
 			name = Character;
 			sourceTree = "<group>";
@@ -280,6 +287,7 @@
 			isa = PBXGroup;
 			children = (
 				043FCA0E2CC433B100BE28AD /* CharactersUseCase.swift */,
+				04A7763F2CC85E2A009B22E0 /* FilterCharactersUseCase.swift */,
 				041BA59B2CC466CA002040B8 /* CharacterUseCase.swift */,
 			);
 			path = Characters;
@@ -319,6 +327,7 @@
 				041BA5AD2CC54A61002040B8 /* SideCharactersCell.swift */,
 				041BA5B32CC55302002040B8 /* GradientView.swift */,
 				041BA5F02CC66D21002040B8 /* SearchBarCell.swift */,
+				04A776412CC86163009B22E0 /* FiltersView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -974,6 +983,7 @@
 				043FC9E12CC4156F00BE28AD /* LocationsViewModel.swift in Sources */,
 				041BA5DD2CC5B860002040B8 /* EpisodePopup.swift in Sources */,
 				041BA5D32CC5A730002040B8 /* LocationDetailViewModel.swift in Sources */,
+				04A776422CC86163009B22E0 /* FiltersView.swift in Sources */,
 				043FC9EE2CC415DE00BE28AD /* EpisodesViewController.swift in Sources */,
 				041BA5BE2CC575BE002040B8 /* CharacterDetailExternalDependenciesResolver.swift in Sources */,
 				043FC9F02CC415DE00BE28AD /* EpisodesViewModel.swift in Sources */,
@@ -1008,8 +1018,10 @@
 				041BA5B62CC55B9F002040B8 /* CharacterCell.swift in Sources */,
 				047875692CC2B094003CF29E /* SceneDelegate.swift in Sources */,
 				041BA58C2CC45720002040B8 /* Config.swift in Sources */,
+				04A776402CC85E2A009B22E0 /* FilterCharactersUseCase.swift in Sources */,
 				041BA5E72CC650C9002040B8 /* LocationCollectionHeader.swift in Sources */,
 				043FCA0B2CC42E8900BE28AD /* Constants.swift in Sources */,
+				04A7763E2CC85CAC009B22E0 /* FilterCharactersRepository.swift in Sources */,
 				041BA5A52CC52779002040B8 /* EpisodeTableViewCell.swift in Sources */,
 				041BA5E22CC5C2D0002040B8 /* CharactersListView.swift in Sources */,
 				041BA5D02CC5A730002040B8 /* LocationDetailExternalDependenciesResolver.swift in Sources */,

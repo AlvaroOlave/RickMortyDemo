@@ -34,10 +34,10 @@ final class CharactersViewController: UIViewController {
     }()
     
     private lazy var titleView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, searchBarCell])
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, searchBarCell, filtersView])
         stackView.translatesAutoresizingMaskIntoConstraints = true
         stackView.axis = .vertical
-        stackView.spacing = 0
+        stackView.spacing = 4
         stackView.layoutMargins = UIEdgeInsets(top: 0,
                                                left: 8.0,
                                                bottom: 0,
@@ -57,6 +57,13 @@ final class CharactersViewController: UIViewController {
     
     private lazy var searchBarCell: SearchBarCell = {
         let view = SearchBarCell()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isHidden = true
+        return view
+    }()
+    
+    private lazy var filtersView: FiltersView = {
+        let view = FiltersView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isHidden = true
         return view
@@ -115,6 +122,11 @@ private extension CharactersViewController {
             .sink { [weak self] searchText in
                 self?.updateSearchTerm(searchText)
             }.store(in: &cancellables)
+        
+        filtersView.$selectedStatus
+            .sink { _ in
+                
+            }.store(in: &cancellables)
     }
     
     func setupConstraints() {
@@ -125,12 +137,11 @@ private extension CharactersViewController {
         let searchHeight = searchBarCell.heightAnchor.constraint(equalToConstant: 40.0)
         searchHeight.priority = .defaultHigh
         searchHeight.isActive = true
-//        titleLabel.layout {
-//            $0.height == 40.0
-//        }
-//        searchBarCell.layout {
-//            $0.height == 40.0
-//        }
+
+        let filterheight = filtersView.heightAnchor.constraint(equalToConstant: 40.0)
+        filterheight.priority = .defaultHigh
+        filterheight.isActive = true
+        
         tableView.layout {
             $0 -|- view
             $0.top == view.safeAreaLayoutGuide.topAnchor
@@ -153,8 +164,9 @@ private extension CharactersViewController {
     }
     
     @objc func showFilter() {
-        self.searchBarCell.isHidden.toggle()
-        self.tableView.reloadRows(at: [], with: .top)
+        searchBarCell.isHidden.toggle()
+        filtersView.isHidden.toggle()
+        tableView.reloadRows(at: [], with: .top)
     }
     
     func bindViewModel() {

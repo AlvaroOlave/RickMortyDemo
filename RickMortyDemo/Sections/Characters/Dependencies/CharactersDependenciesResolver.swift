@@ -14,6 +14,7 @@ protocol CharactersDependenciesResolver {
     func resolve() -> CharactersViewModel
     func resolve() -> CharactersCoordinator?
     func resolve() -> CharactersUseCase
+    func resolve() -> FilterCharactersUseCase
 }
 
 extension CharactersDependenciesResolver {
@@ -27,5 +28,9 @@ extension CharactersDependenciesResolver {
     
     func resolve() -> CharactersUseCase {
         CharactersUseCaseImpl(repository: CharactersRepositoryImpl(baseURL: Config.baseURL))
+    }
+    
+    func resolve() -> FilterCharactersUseCase {
+        FilterCharactersUseCaseImpl(repository: FilterCharactersRepositoryImpl(baseURL: Config.baseURL))
     }
 }

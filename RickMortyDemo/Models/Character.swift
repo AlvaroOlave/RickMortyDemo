@@ -69,4 +69,15 @@ enum Status: String, Decodable {
     case Alive
     case Dead
     case unknown
+    
+    func toQueryParams() -> String {
+        switch self {
+        case .Alive:
+            return "status=alive"
+        case .Dead:
+            return "status=dead"
+        case .unknown:
+            return "status=unknown"
+        }
+    }
 }

@@ -28,6 +28,10 @@ final class CharactersViewModel {
         dependencies.resolve()
     }()
     
+    private lazy var filterCharactersUseCase: FilterCharactersUseCase = {
+        dependencies.resolve()
+    }()
+    
     internal var isLoading = false
     internal var hasMore = true
     
@@ -53,11 +57,28 @@ final class CharactersViewModel {
 }
 
 private extension CharactersViewModel {
-    func loadCharacters(completion: (() -> Void)? = nil) {
+    func loadCharacters() {
         Task {
             isLoading = true
             do {
                 let characters = try await charactersUseCase.getCharacters()
+                hasMore = !characters.isEmpty
+                splitCharacters(characters.map({ Character(with: $0) }))
+                state = .showLoading(false)
+                isLoading = false
+            } catch {
+                state = .showError(error)
+                state = .showLoading(false)
+                isLoading = false
+            }
+        }
+    }
+    
+    func filterCharacters(params: [String]) {
+        Task {
+            isLoading = true
+            do {
+                let characters = try await filterCharactersUseCase.getCharacter(params: params)
                 hasMore = !characters.isEmpty
                 splitCharacters(characters.map({ Character(with: $0) }))
                 state = .showLoading(false)
