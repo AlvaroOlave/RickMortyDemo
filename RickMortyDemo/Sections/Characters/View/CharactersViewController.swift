@@ -48,7 +48,7 @@ final class CharactersViewController: UIViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Characters"
+        label.text = String(localized: "Characters")
         label.font = Fonts.markerFont(size: 32.0)
         label.textColor = Colors.rmBlue
         label.translatesAutoresizingMaskIntoConstraints = false

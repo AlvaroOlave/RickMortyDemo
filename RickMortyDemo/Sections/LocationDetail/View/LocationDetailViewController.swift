@@ -134,7 +134,8 @@ private extension LocationDetailViewController {
     func setupLocation(_ location: Location) {
         titleLabel.text = location.name
         navigationItem.titleView = titleLabel
-        planetInfo.text = "\(location.type) in \(location.dimension)"
+
+        planetInfo.text = String(localized: "\(location.type) in \(location.dimension)")
         charactersListView.setupCharacters(location.residents.map({ idFromURL($0)}).compactMap({ $0 }))
     }
     

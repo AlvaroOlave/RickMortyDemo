@@ -13,7 +13,7 @@ final class LocationCollectionHeader: UICollectionReusableView {
         super.init(frame: frame)
         
         let label = UILabel()
-        label.text = "Locations"
+        label.text = String(localized: "Locations")
         label.font = Fonts.markerFont(size: 32.0)
         label.textColor = Colors.rmBlue
         label.translatesAutoresizingMaskIntoConstraints = false

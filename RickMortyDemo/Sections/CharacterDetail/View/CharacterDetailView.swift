@@ -38,11 +38,11 @@ struct CharacterDetailView: View {
                 Text("Status: \(character.status.rawValue)")
                     .rmLabelStyle()
                 
-                locationView("Origin: \(character.origin.name)")
+                locationView(String(localized: "Origin: \(character.origin.name)"))
                     .onTapGesture {
                         selectedLocation(character.origin.url)
                     }
-                locationView("Current location: \(character.location.name)")
+                locationView(String(localized: "Current location: \(character.location.name)"))
                     .onTapGesture {
                         selectedLocation(character.location.url)
                     }
@@ -58,7 +58,7 @@ struct CharacterDetailView: View {
     
     @ViewBuilder func locationView(_ name: String) -> some View {
         HStack {
-            Text(name)
+            Text(LocalizedStringKey(name))
                 .rmLabelStyle()
             Image(systemName: "chevron.right")
                 .resizable()

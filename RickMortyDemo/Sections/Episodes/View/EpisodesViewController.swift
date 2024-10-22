@@ -85,7 +85,7 @@ extension EpisodesViewController: UITableViewDataSource, UITableViewDelegate {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50))
         
         let label = UILabel()
-        label.text = "Episodes"
+        label.text = String(localized: "Episodes")
         label.font = Fonts.markerFont(size: 32.0)
         label.textColor = Colors.rmBlue
         label.translatesAutoresizingMaskIntoConstraints = false

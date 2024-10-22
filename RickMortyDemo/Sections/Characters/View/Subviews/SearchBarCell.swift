@@ -17,7 +17,7 @@ final class SearchBarCell: UIView {
     private lazy var textField: UITextField = {
         let textfield = UITextField(frame: .zero)
         textfield.translatesAutoresizingMaskIntoConstraints = false
-        textfield.attributedPlaceholder = NSAttributedString(string: "Search...",
+        textfield.attributedPlaceholder = NSAttributedString(string: String(localized: "Search..."),
                                                              attributes: [.foregroundColor: UIColor.systemGray6])
         textfield.borderStyle = .roundedRect
         textfield.backgroundColor = Colors.rmPurple?.withAlphaComponent(0.9)

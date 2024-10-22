@@ -18,7 +18,7 @@ final class CharactersListView: UIView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.markerFont(size: 24.0)
-        label.text = "Characters"
+        label.text = String(localized: "Characters")
         label.textColor = mainColor
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 2
