@@ -9,6 +9,7 @@
 import UIKit
 import Combine
 import AutolayoutDSL
+import SwiftUI
 
 final class CharacterDetailViewController: UIViewController {
     
@@ -30,55 +31,6 @@ final class CharacterDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 2
         return label
-    }()
-    
-    private lazy var placeholder: UIImage? = {
-        UIImage(named: "rmPlaceholder")
-    }()
-    
-    private lazy var characterImage: UIImageView = {
-        let image = UIImageView(image: placeholder)
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.layer.cornerRadius = 8.0
-        image.contentMode = .scaleAspectFill
-        image.clipsToBounds = true
-        return image
-    }()
-    
-    private lazy var characterSpecies: UILabel = {
-        let label = UILabel()
-        label.font = Fonts.markerFont(size: 20.0)
-        label.textColor = Colors.rmBlue
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 1
-        return label
-    }()
-    
-    private lazy var characterStatus: UILabel = {
-        let label = UILabel()
-        label.font = Fonts.markerFont(size: 20.0)
-        label.textColor = Colors.rmBlue
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 1
-        return label
-    }()
-    
-    private lazy var originView: OriginView = {
-        let view = OriginView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private lazy var currentLocationView: OriginView = {
-        let view = OriginView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private lazy var episodesListView: EpisodesListView = {
-        let view = EpisodesListView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
     }()
     
     private lazy var errorView: ErrorView = {
@@ -119,22 +71,6 @@ private extension CharacterDetailViewController {
         navigationItem.titleView = titleLabel
         navigationController?.navigationBar.topItem?.title = ""
         navigationController?.navigationBar.tintColor = Colors.rmBlue
-        view.addSubview(containerView)
-        scrollableStackView.addArrangedSubviews(characterImage,
-                                                characterSpecies,
-                                                characterStatus,
-                                                originView,
-                                                currentLocationView,
-                                                episodesListView)
-        setupConstraints()
-    }
-    
-    func setupConstraints() {
-        containerView.layout {
-            $0 -|- (view + 16.0)
-            $0.top == view.safeAreaLayoutGuide.topAnchor
-            $0.bottom == view.safeAreaLayoutGuide.bottomAnchor
-        }
     }
     
     func bindViewModel() {
@@ -146,7 +82,7 @@ private extension CharacterDetailViewController {
                 case .idle:
                     break
                 case .showCharacter(let character):
-                    self?.setupCharacter(character)
+                    self?.setupHostedView(character)
                 case .showLoading(let show):
                     self?.showLoadingView(isVisible: show)
                 case .showError(let error):
@@ -156,43 +92,6 @@ private extension CharacterDetailViewController {
                 }
             }
             .store(in: &cancellables)
-    }
-    
-    func setupCharacter(_ character: Character) {
-        titleLabel.text = character.name
-        if let url = URL(string: character.image) {
-            ImageLoader.shared.loadImage(from: url,
-                                         placeholder: placeholder) { [weak self] img in
-                self?.characterImage.image = img
-            }
-        }
-        
-        characterSpecies.text = "Species: \(character.species), \(character.gender)"
-        characterStatus.text = "Status: \(character.status)"
-        originView.setOrigin("Origin: \(character.origin.name)")
-        
-        originView.addGestureRecognizer(LocationTapGesture(id: idFromURL(character.origin.url),
-                                                           target: self,
-                                                           action: #selector(goToLocation)))
-        currentLocationView.setOrigin("Current location: \(character.location.name)")
-        currentLocationView.addGestureRecognizer(LocationTapGesture(id: idFromURL(character.location.url),
-                                                                    target: self,
-                                                                    action: #selector(goToLocation)))
-        let episodeIds = character.episode.map({ idFromURL($0)}).compactMap({ $0 })
-        if !episodeIds.isEmpty {
-            episodesListView.setupEpisodes(episodeIds)
-            episodesListView.$selectedEpisode
-                .sink { [weak self] id in
-                    guard let id = id else { return }
-                    self?.viewModel.loadEpisode(id)
-                }
-                .store(in: &cancellables)
-        }
-    }
-    
-    @objc func goToLocation(sender : LocationTapGesture) {
-        guard let id = sender.id else { return }
-        viewModel.goToLocation(id)
     }
     
     func idFromURL(_ url: String) -> Int? {
@@ -220,24 +119,26 @@ private extension CharacterDetailViewController {
     }
     
     func showError(_ error: Error) {
-        characterImage.isHidden = true
-        characterSpecies.isHidden = true
-        characterStatus.isHidden = true
-        originView.isHidden = true
-        currentLocationView.isHidden = true
-        episodesListView.isHidden = true
         errorView.setErrorDescription(error.localizedDescription)
         scrollableStackView.addArrangedSubviews(errorView)
+    }
+    
+    func setupHostedView(_ character: Character) {
+        titleLabel.text = character.name
+        let host = UIHostingController(rootView: CharacterDetailView(character: character, 
+                                                                     selectedLocation: { [weak self] url in
+            guard let id = self?.idFromURL(url) else { return }
+            self?.viewModel.goToLocation(id)
+        }, selectedEpisode: { [weak self] id in
+            guard let id = id else { return }
+            self?.viewModel.loadEpisode(id)
+        }))
+        addChild(host)
+        view.addSubview(host.view)
+        host.view.translatesAutoresizingMaskIntoConstraints = false
+        host.view.fill(view)
+        host.didMove(toParent: self)
     }
 }
 
 extension CharacterDetailViewController: LoadingCapable {}
-
-final class LocationTapGesture: UITapGestureRecognizer {
-    let id: Int?
-    
-    init(id: Int?, target: Any?, action: Selector?) {
-        self.id = id
-        super.init(target: target, action: action)
-    }
-}

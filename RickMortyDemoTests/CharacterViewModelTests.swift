@@ -31,7 +31,8 @@ final class CharacterDetailViewModelTests: XCTestCase {
     
     func testViewDidLoad_showCharacterFromDataBinding() {
         // Given
-        let character = Character.mockCharacter(id: 1)
+        let dto = CharacterDTO.mockCharacter(id: 1)
+        let character = Character(with: dto)
         mockDependencies.mockCoordinator.dataBinding.set(character)
         let expectation = XCTestExpectation(description: "Should show character")
         // When
@@ -50,7 +51,7 @@ final class CharacterDetailViewModelTests: XCTestCase {
     
     func testViewDidLoad_loadCharacterById() {
         // Given
-        let character = Character.mockCharacter(id: 1)
+        let character = CharacterDTO.mockCharacter(id: 1)
         mockDependencies.mockCoordinator.dataBinding.set(1)
         mockDependencies.mockCharacterUseCase.mockCharacter = character
         let expectation = self.expectation(description: "Load character")
@@ -70,7 +71,7 @@ final class CharacterDetailViewModelTests: XCTestCase {
     
     func testLoadEpisode_success() {
         // Given
-        let episode = Episode.mockEpisode(id: 1)
+        let episode = EpisodeDTO.mockEpisode(id: 1)
         mockDependencies.mockEpisodeUseCase.mockedEpisode = episode
         let expectation = self.expectation(description: "Load episode")
         // When

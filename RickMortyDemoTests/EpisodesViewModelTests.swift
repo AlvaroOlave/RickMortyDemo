@@ -50,7 +50,7 @@ final class EpisodesViewModelTests: XCTestCase {
     
     func testLoadEpisodes_success() {
         // Given
-        let episode = Episode.mockEpisode()
+        let episode = EpisodeDTO.mockEpisode()
         mockDependencies.mockUseCase.mockEpisodes = [episode]
         let expectation = XCTestExpectation(description: "Should add episodes")
         // When
@@ -101,7 +101,7 @@ final class EpisodesViewModelTests: XCTestCase {
         // Given
         viewModel.isLoading = false
         viewModel.hasMore = true
-        let episode = Episode.mockEpisode()
+        let episode = EpisodeDTO.mockEpisode()
         mockDependencies.mockUseCase.mockEpisodes = [episode]
         let expectation = XCTestExpectation(description: "Should add more episodes")
         // When

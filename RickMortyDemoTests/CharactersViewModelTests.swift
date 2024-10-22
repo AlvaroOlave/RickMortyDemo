@@ -50,7 +50,7 @@ final class CharactersViewModelTests: XCTestCase {
     
     func testLoadCharacters_success() {
         // Given
-        let character = Character.mockCharacter(id: 0)
+        let character = CharacterDTO.mockCharacter(id: 0)
         mockDependencies.mockUseCase.mockCharacters = [character]
         let expectation = XCTestExpectation(description: "Should return given character")
         // When
@@ -88,7 +88,8 @@ final class CharactersViewModelTests: XCTestCase {
     
     func testGoToDetail() {
         // Given
-        let character = Character.mockCharacter(id: 0)
+        let dto = CharacterDTO.mockCharacter(id: 0)
+        let character = Character(with: dto)
         // When
         viewModel.goToDetail(character)
         // Then
@@ -99,7 +100,7 @@ final class CharactersViewModelTests: XCTestCase {
         // Given
         viewModel.isLoading = false
         viewModel.hasMore = true
-        let character = Character.mockCharacter(id: 0)
+        let character = CharacterDTO.mockCharacter(id: 0)
         mockDependencies.mockUseCase.mockCharacters = [character]
         let expectation = XCTestExpectation(description: "Should load more characters")
         // When

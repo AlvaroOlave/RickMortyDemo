@@ -11,10 +11,10 @@ import Foundation
 class MockEpisodesUseCase: EpisodesUseCase {
     
     var shouldThrowError = false
-    var mockEpisodes: [Episode] = []
+    var mockEpisodes: [EpisodeDTO] = []
     var isCalled = false
     
-    func getEpisodes() async throws -> [Episode] {
+    func getEpisodes() async throws -> [EpisodeDTO] {
         isCalled = true
         if shouldThrowError {
             throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Mock error"])
@@ -25,10 +25,10 @@ class MockEpisodesUseCase: EpisodesUseCase {
 
 class MockCharactersUseCase: CharactersUseCase {
     var shouldThrowError = false
-    var mockCharacters: [Character] = []
+    var mockCharacters: [CharacterDTO] = []
     var isCalled = false
     
-    func getCharacters() async throws -> [Character] {
+    func getCharacters() async throws -> [CharacterDTO] {
         isCalled = true
         if shouldThrowError {
             throw NSError(domain: "",
@@ -41,10 +41,10 @@ class MockCharactersUseCase: CharactersUseCase {
 
 class MockCharacterUseCase: CharacterUseCase {
     var shouldThrowError = false
-    var mockCharacter: Character = Character.mockCharacter(id: 0)
+    var mockCharacter: CharacterDTO = CharacterDTO.mockCharacter(id: 0)
     var isCalled = false
     
-    func getCharacter(id: Int) async throws -> RickMortyDemo.Character {
+    func getCharacter(id: Int) async throws -> CharacterDTO {
         isCalled = true
         if shouldThrowError {
             throw NSError(domain: "",
@@ -57,9 +57,9 @@ class MockCharacterUseCase: CharacterUseCase {
 
 class MockLocationUseCase: LocationUseCase {
     var shouldThrowError = false
-    var mockLocation: Location = Location.mockLocation(id: 0)
+    var mockLocation: LocationDTO = LocationDTO.mockLocation(id: 0)
     
-    func getLocation(id: Int) async throws -> Location {
+    func getLocation(id: Int) async throws -> LocationDTO {
         if shouldThrowError {
             throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Mock error"])
         }
@@ -69,55 +69,55 @@ class MockLocationUseCase: LocationUseCase {
 
 class MockEpisodeUseCase: EpisodeUseCase {
     var shouldThrowError = false
-    var mockedEpisode: Episode?
+    var mockedEpisode: EpisodeDTO?
     
-    func getEpisode(id: Int) async throws -> Episode {
+    func getEpisode(id: Int) async throws -> EpisodeDTO {
         if shouldThrowError {
             throw NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Mock error"])
         }
-        return mockedEpisode ?? Episode.mockEpisode()
+        return mockedEpisode ?? EpisodeDTO.mockEpisode()
     }
 }
 
-extension Character {
-    static func mockCharacter(id: Int) -> Character {
-        Character(id: id,
-                  name: "name",
-                  status: .Alive,
-                  species: "species",
-                  type: "type",
-                  gender: .Female,
-                  origin: CharacterOrigin(name: "",
-                                          url: ""),
-                  location: CharacterLocation(name: "",
-                                              url: ""),
-                  image: "",
-                  episode: [],
-                  url: "",
-                  created: "")
+extension CharacterDTO {
+    static func mockCharacter(id: Int) -> CharacterDTO {
+        CharacterDTO(id: id,
+                     name: "name",
+                     status: "Alive",
+                     species: "species",
+                     type: "type",
+                     gender: "Female",
+                     origin: CharacterOrigin(name: "",
+                                             url: ""),
+                     location: CharacterLocation(name: "",
+                                                 url: ""),
+                     image: "",
+                     episode: [],
+                     url: "",
+                     created: "")
     }
 }
 
-extension Episode {
-    static func mockEpisode(id: Int = 0) -> Episode {
-        Episode(id: id,
-                name: "name",
-                air_date: "date",
-                episode: "episode",
-                characters: [],
-                url: "",
-                created: "")
+extension EpisodeDTO {
+    static func mockEpisode(id: Int = 0) -> EpisodeDTO {
+        EpisodeDTO(id: id,
+                   name: "name",
+                   air_date: "date",
+                   episode: "episode",
+                   characters: [],
+                   url: "",
+                   created: "")
     }
 }
 
-extension Location {
-    static func mockLocation(id: Int) -> Location {
-        Location(id: id,
-                 name: "",
-                 type: "",
-                 dimension: "",
-                 residents: [],
-                 url: "",
-                 created: "")
+extension LocationDTO {
+    static func mockLocation(id: Int) -> LocationDTO {
+        LocationDTO(id: id,
+                    name: "",
+                    type: "",
+                    dimension: "",
+                    residents: [],
+                    url: "",
+                    created: "")
     }
 }

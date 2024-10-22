@@ -31,12 +31,12 @@ final class LocationDetailViewModelTests: XCTestCase {
     
     func testViewDidLoad_showsLocationFromCoordinator() {
         // Given
-        let location = Location.mockLocation(id: 1)
+        let dto = LocationDTO.mockLocation(id: 1)
+        let location = Location(with: dto)
         mockDependencies.mockCoordinator.dataBinding.set(location)
         let expectation = XCTestExpectation(description: "Should show location")
         // When
         viewModel.$state
-            .dropFirst()
             .sink { state in
                 if case .showLocation(let receivedLocation) = state {
                     XCTAssertEqual(receivedLocation.id, location.id)
@@ -51,7 +51,7 @@ final class LocationDetailViewModelTests: XCTestCase {
     
     func testViewDidLoad_fetchesLocationByID() {
         // Given
-        let location = Location.mockLocation(id: 1)
+        let location = LocationDTO.mockLocation(id: 1)
         mockDependencies.mockUseCase.mockLocation = location
         mockDependencies.mockCoordinator.dataBinding.set(1)
         let expectation = XCTestExpectation(description: "Should fetch location by ID")
