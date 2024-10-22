@@ -33,6 +33,7 @@ final class LocationsViewController: UIViewController {
                             withReuseIdentifier: "LocationCollectionHeader")
         collection.delegate = self
         collection.dataSource = self
+        collection.prefetchDataSource = self
         collection.backgroundColor = .clear
         return collection
     }()
@@ -111,6 +112,16 @@ extension LocationsViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         CGSize(width: collectionView.frame.width, height: 50)
+    }
+}
+
+extension LocationsViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        let limitIndex = locations.count - 5
+        
+        if indexPaths.contains(where: { $0.row >= limitIndex }) {
+            viewModel.loadMoreLocations()
+        }
     }
 }
 

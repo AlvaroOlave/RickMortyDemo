@@ -24,6 +24,7 @@ final class EpisodesViewController: UIViewController {
         table.register(EpisodeTableViewCell.self, forCellReuseIdentifier: "EpisodeTableViewCell")
         table.dataSource = self
         table.delegate = self
+        table.prefetchDataSource = self
         table.backgroundColor = .clear
         table.layer.cornerRadius = 8.0
         table.bounces = false
@@ -73,9 +74,6 @@ extension EpisodesViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == episodes.count - 5 {
-            viewModel.loadMoreEpisodes()
-        }
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "EpisodeTableViewCell") as? EpisodeTableViewCell
         else { return UITableViewCell(frame: .zero) }
         
@@ -106,6 +104,17 @@ extension EpisodesViewController: UITableViewDataSource, UITableViewDelegate {
         return UITableView.automaticDimension
     }
 }
+
+extension EpisodesViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        let limitIndex = episodes.count - 5
+        
+        if indexPaths.contains(where: { $0.row >= limitIndex }) {
+            viewModel.loadMoreEpisodes()
+        }
+    }
+}
+
 
 private extension EpisodesViewController {
     func setupView() {
