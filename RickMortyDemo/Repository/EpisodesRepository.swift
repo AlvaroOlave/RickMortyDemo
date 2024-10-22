@@ -8,12 +8,12 @@
 import Foundation
 
 protocol EpisodesRepository {
-    func getEpisodes() async throws -> [Episode]
+    func getEpisodes() async throws -> [EpisodeDTO]
 }
 
 final class EpisodesRepositoryImpl: EpisodesRepository {
     
-    private let repository: Repository<CompleteResponse<[Episode]>>
+    private let repository: Repository<CompleteResponseDTO<[EpisodeDTO]>>
     
     internal var currentPage = 0
     internal var hasMorePages = true
@@ -22,9 +22,10 @@ final class EpisodesRepositoryImpl: EpisodesRepository {
         self.repository = Repository(baseURL: baseURL)
     }
     
-    func getEpisodes() async throws -> [Episode] {
+    func getEpisodes() async throws -> [EpisodeDTO] {
         guard hasMorePages else { return [] }
-        let completeResponse = try await repository.fetch(endpoint: Config.episode, page: currentPage)
+        let completeResponse = try await repository.fetch(endpoint: Config.episode, 
+                                                          page: currentPage)
         manageInfo(completeResponse.info)
         return completeResponse.results
     }

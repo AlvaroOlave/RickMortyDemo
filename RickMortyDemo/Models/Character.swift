@@ -18,8 +18,21 @@ struct Character: Decodable {
     let location: CharacterLocation
     let image: String
     let episode: [String]
-    let url: String
-    let created: String
+    
+    init(with dto: CharacterDTO) {
+        self.id = dto.id
+        self.name = dto.name
+        self.status = Status(rawValue: dto.status) ?? .unknown
+        self.species = dto.species
+        self.type = dto.type
+        self.gender = Gender(rawValue: dto.gender) ?? .unknown
+        self.origin = CharacterOrigin(name: dto.origin.name,
+                                      url: dto.origin.url)
+        self.location = CharacterLocation(name: dto.location.name,
+                                          url: dto.location.url)
+        self.image = dto.image
+        self.episode = dto.episode
+    }
 }
 
 struct CharacterOrigin: Decodable {

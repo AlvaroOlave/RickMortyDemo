@@ -8,7 +8,7 @@
 import Foundation
 
 protocol CharactersUseCase {
-    func getCharacters() async throws -> [Character]
+    func getCharacters() async throws -> [CharacterDTO]
 }
 
 struct CharactersUseCaseImpl: CharactersUseCase {
@@ -19,7 +19,7 @@ struct CharactersUseCaseImpl: CharactersUseCase {
         self.repository = repository
     }
     
-    func getCharacters() async throws -> [Character] {
+    func getCharacters() async throws -> [CharacterDTO] {
         return try await repository.getCharacters()
     }
 }

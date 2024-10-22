@@ -13,6 +13,12 @@ struct Episode: Decodable {
     let air_date: String
     let episode: String
     let characters: [String]
-    let url: String
-    let created: String
+    
+    init(with dto: EpisodeDTO) {
+        self.id = dto.id
+        self.name = dto.name
+        self.air_date = dto.air_date
+        self.episode = dto.episode
+        self.characters = dto.characters
+    }
 }

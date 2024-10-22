@@ -13,6 +13,12 @@ struct Location: Decodable {
     let type: String
     let dimension: String
     let residents: [String]
-    let url: String
-    let created: String
+    
+    init(with dto: LocationDTO) {
+        self.id = dto.id
+        self.name = dto.name
+        self.type = dto.type
+        self.dimension = dto.dimension
+        self.residents = dto.residents
+    }
 }

@@ -57,9 +57,9 @@ private extension LocationsViewModel {
         Task {
             isLoading = true
             do {
-                let locations = try await locationsUseCase.getLocations()
-                hasMore = !locations.isEmpty
-                state = .addLocations(locations)
+                let dtos = try await locationsUseCase.getLocations()
+                hasMore = !dtos.isEmpty
+                state = .addLocations(dtos.map({ Location(with: $0) }))
                 state = .showLoading(false)
                 isLoading = false
             } catch {

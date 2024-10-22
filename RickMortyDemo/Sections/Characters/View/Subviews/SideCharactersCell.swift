@@ -47,6 +47,8 @@ final class SideCharactersCell: UITableViewCell {
         cancellable?.cancel()
         cancellable = nil
         selectedCharacter = nil
+        leftCharacter = nil
+        rightCharacter = nil
         leftCharacterCell.prepareForReuse()
         rightCharacterCell.prepareForReuse()
     }

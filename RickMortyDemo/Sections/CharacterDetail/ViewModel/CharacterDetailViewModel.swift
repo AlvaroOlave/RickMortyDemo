@@ -59,8 +59,8 @@ final class CharacterDetailViewModel {
         state = .showLoading(true)
         Task {
             do {
-                let episode = try await episodeUseCase.getEpisode(id: id)
-                state = .showEpisode(episode)
+                let dto = try await episodeUseCase.getEpisode(id: id)
+                state = .showEpisode(Episode(with: dto))
                 state = .showLoading(false)
             } catch {
                 state = .showError(error)
@@ -75,8 +75,8 @@ private extension CharacterDetailViewModel {
         state = .showLoading(true)
         Task {
             do {
-                let character = try await characterUseCase.getCharacter(id: id)
-                state = .showCharacter(character)
+                let dto = try await characterUseCase.getCharacter(id: id)
+                state = .showCharacter(Character(with: dto))
                 state = .showLoading(false)
             } catch {
                 state = .showError(error)

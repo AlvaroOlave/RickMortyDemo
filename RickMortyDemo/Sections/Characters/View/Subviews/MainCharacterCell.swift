@@ -41,6 +41,7 @@ final class MainCharacterCell: UITableViewCell {
         cancellable?.cancel()
         cancellable = nil
         selectedCharacter = nil
+        character = nil
         characterCell.prepareForReuse()
     }
     

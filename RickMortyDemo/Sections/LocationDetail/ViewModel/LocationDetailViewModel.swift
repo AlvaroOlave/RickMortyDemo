@@ -52,8 +52,8 @@ private extension LocationDetailViewModel {
         state = .showLoading(true)
         Task {
             do {
-                let location = try await locationUseCase.getLocation(id: id)
-                state = .showLocation(location)
+                let dto = try await locationUseCase.getLocation(id: id)
+                state = .showLocation(Location(with: dto))
                 state = .showLoading(false)
             } catch {
                 state = .showError(error)

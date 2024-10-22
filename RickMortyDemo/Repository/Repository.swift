@@ -40,7 +40,7 @@ protocol ManageResponseInfo: AnyObject {
 }
 
 extension ManageResponseInfo {
-    func manageInfo(_ info: RequestInfo) {
+    func manageInfo(_ info: RequestInfoDTO) {
         guard let next = info.next,
                 let nextURL = URL(string: next),
               let page = nextURL

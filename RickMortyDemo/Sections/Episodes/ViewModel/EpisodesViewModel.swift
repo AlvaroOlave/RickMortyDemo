@@ -56,9 +56,9 @@ private extension EpisodesViewModel {
         Task {
             isLoading = true
             do {
-                let episodes = try await episodesUseCase.getEpisodes()
-                hasMore = !episodes.isEmpty
-                state = .addEpisodes(episodes)
+                let dtos = try await episodesUseCase.getEpisodes()
+                hasMore = !dtos.isEmpty
+                state = .addEpisodes(dtos.map({ Episode(with: $0) }))
                 state = .showLoading(false)
                 isLoading = false
             } catch {

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol EpisodesUseCase {
-    func getEpisodes() async throws -> [Episode]
+    func getEpisodes() async throws -> [EpisodeDTO]
 }
 
 struct EpisodesUseCaseImpl: EpisodesUseCase {
@@ -19,7 +19,7 @@ struct EpisodesUseCaseImpl: EpisodesUseCase {
         self.repository = repository
     }
     
-    func getEpisodes() async throws -> [Episode] {
+    func getEpisodes() async throws -> [EpisodeDTO] {
         return try await repository.getEpisodes()
     }
 }

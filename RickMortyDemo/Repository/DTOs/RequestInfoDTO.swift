@@ -1,13 +1,13 @@
 //
-//  RequestInfo.swift
+//  RequestInfoDTO.swift
 //  RickMortyDemo
 //
-//  Created by Álvaro Olave Bañeres on 19/10/24.
+//  Created by Álvaro Olave Bañeres on 22/10/24.
 //
 
 import Foundation
 
-struct RequestInfo: Decodable {
+struct RequestInfoDTO: Decodable {
     let count: Int
     let pages: Int
     let next: String?

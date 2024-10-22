@@ -8,12 +8,12 @@
 import Foundation
 
 protocol CharactersRepository {
-    func getCharacters() async throws -> [Character]
+    func getCharacters() async throws -> [CharacterDTO]
 }
 
 final class CharactersRepositoryImpl: CharactersRepository {
     
-    private let repository: Repository<CompleteResponse<[Character]>>
+    private let repository: Repository<CompleteResponseDTO<[CharacterDTO]>>
     
     internal var currentPage = 0
     internal var hasMorePages = true
@@ -22,9 +22,10 @@ final class CharactersRepositoryImpl: CharactersRepository {
         self.repository = Repository(baseURL: baseURL)
     }
     
-    func getCharacters() async throws -> [Character] {
+    func getCharacters() async throws -> [CharacterDTO] {
         guard hasMorePages else { return [] }
-        let completeResponse = try await repository.fetch(endpoint: Config.character, page: currentPage)
+        let completeResponse = try await repository.fetch(endpoint: Config.character, 
+                                                          page: currentPage)
         manageInfo(completeResponse.info)
         return completeResponse.results
     }

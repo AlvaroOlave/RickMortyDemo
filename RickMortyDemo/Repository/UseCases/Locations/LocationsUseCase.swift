@@ -8,7 +8,7 @@
 import Foundation
 
 protocol LocationsUseCase {
-    func getLocations() async throws -> [Location]
+    func getLocations() async throws -> [LocationDTO]
 }
 
 struct LocationsUseCaseImpl: LocationsUseCase {
@@ -19,7 +19,7 @@ struct LocationsUseCaseImpl: LocationsUseCase {
         self.repository = repository
     }
     
-    func getLocations() async throws -> [Location] {
+    func getLocations() async throws -> [LocationDTO] {
         return try await repository.getLocations()
     }
 }

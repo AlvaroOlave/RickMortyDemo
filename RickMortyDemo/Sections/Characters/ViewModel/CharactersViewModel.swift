@@ -59,7 +59,7 @@ private extension CharactersViewModel {
             do {
                 let characters = try await charactersUseCase.getCharacters()
                 hasMore = !characters.isEmpty
-                splitCharacters(characters)
+                splitCharacters(characters.map({ Character(with: $0) }))
                 state = .showLoading(false)
                 isLoading = false
             } catch {
