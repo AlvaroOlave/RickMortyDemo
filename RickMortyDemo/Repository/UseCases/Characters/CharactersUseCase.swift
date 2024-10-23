@@ -9,6 +9,7 @@ import Foundation
 
 protocol CharactersUseCase {
     func getCharacters() async throws -> [CharacterDTO]
+    func reset()
 }
 
 struct CharactersUseCaseImpl: CharactersUseCase {
@@ -21,5 +22,9 @@ struct CharactersUseCaseImpl: CharactersUseCase {
     
     func getCharacters() async throws -> [CharacterDTO] {
         return try await repository.getCharacters()
+    }
+    
+    func reset() {
+        repository.reset()
     }
 }

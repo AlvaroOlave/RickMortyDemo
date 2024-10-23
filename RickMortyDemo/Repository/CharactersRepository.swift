@@ -9,6 +9,7 @@ import Foundation
 
 protocol CharactersRepository {
     func getCharacters() async throws -> [CharacterDTO]
+    func reset()
 }
 
 final class CharactersRepositoryImpl: CharactersRepository {
@@ -28,6 +29,11 @@ final class CharactersRepositoryImpl: CharactersRepository {
                                                           page: currentPage)
         manageInfo(completeResponse.info)
         return completeResponse.results
+    }
+    
+    func reset() {
+        currentPage = 0
+        hasMorePages = true
     }
 }
 

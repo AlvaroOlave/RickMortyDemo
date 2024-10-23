@@ -9,6 +9,7 @@ import Foundation
 
 protocol FilterCharactersRepository {
     func getCharacters(params: [String]) async throws -> [CharacterDTO]
+    func reset()
 }
 
 final class FilterCharactersRepositoryImpl: FilterCharactersRepository {
@@ -28,6 +29,11 @@ final class FilterCharactersRepositoryImpl: FilterCharactersRepository {
         let completeResponse = try await repository.fetch(endpoint: Config.character + "/?\(completeParams)")
         manageInfo(completeResponse.info)
         return completeResponse.results
+    }
+    
+    func reset() {
+        currentPage = 0
+        hasMorePages = true
     }
 }
 

@@ -124,8 +124,10 @@ private extension CharactersViewController {
             }.store(in: &cancellables)
         
         filtersView.$selectedStatus
-            .sink { _ in
-                
+            .dropFirst()
+            .sink { [weak self] status in
+                print(status)
+                self?.viewModel.filterByStatus(status)
             }.store(in: &cancellables)
     }
     
@@ -183,6 +185,8 @@ private extension CharactersViewController {
                     self?.showLoadingView(isVisible: show)
                 case .showError(let error):
                     self?.showError(error)
+                case .reset:
+                    self?.reset()
                 }
             }
             .store(in: &cancellables)
@@ -214,6 +218,11 @@ private extension CharactersViewController {
         errorView.setErrorDescription(error.localizedDescription)
         tableView.isHidden = true
         errorView.isHidden = false
+    }
+    
+    func reset() {
+        characters.removeAll()
+        tableView.reloadData()
     }
 }
 
@@ -273,7 +282,7 @@ extension CharactersViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension CharactersViewController: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        let limitIndex = filteredCharacters.count - 5
+        let limitIndex = filteredCharacters.count - 3
         
         if indexPaths.contains(where: { $0.row >= limitIndex }) {
             viewModel.loadMoreCharacters()

@@ -14,6 +14,7 @@ enum CharactersState {
     case addCharacters([[Character]])
     case showLoading(Bool)
     case showError(Error)
+    case reset
 }
 
 final class CharactersViewModel {
@@ -34,6 +35,7 @@ final class CharactersViewModel {
     
     internal var isLoading = false
     internal var hasMore = true
+    internal var currentFilter: String?
     
     @Published var state: CharactersState = .idle
     
@@ -43,20 +45,34 @@ final class CharactersViewModel {
     
     func viewDidLoad() {
         state = .showLoading(true)
-        loadCharacters()
+        load()
     }
     
     func loadMoreCharacters() {
         guard !isLoading && hasMore else { return }
-        loadCharacters()
+        load()
     }
     
     func goToDetail(_ character: Character) {
         coordinator?.goToDetail(character)
     }
+    
+    func filterByStatus(_ status: Status?) {
+        reset()
+        currentFilter = status?.toQueryParams()
+        load()
+    }
 }
 
 private extension CharactersViewModel {
+    func load() {
+        if let currentFilter = currentFilter {
+            filterCharacters(params: [currentFilter])
+        } else {
+            loadCharacters()
+        }
+    }
+    
     func loadCharacters() {
         Task {
             isLoading = true
@@ -111,5 +127,13 @@ private extension CharactersViewModel {
             grouped.append(pairBuffer)
         }
         state = .addCharacters(grouped)
+    }
+    
+    func reset() {
+        state = .reset
+        charactersUseCase.reset()
+        filterCharactersUseCase.reset()
+        isLoading = false
+        hasMore = true
     }
 }

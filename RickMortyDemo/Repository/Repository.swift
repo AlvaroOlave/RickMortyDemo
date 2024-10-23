@@ -42,9 +42,13 @@ protocol ManageResponseInfo: AnyObject {
 extension ManageResponseInfo {
     func manageInfo(_ info: RequestInfoDTO) {
         guard let next = info.next,
-                let nextURL = URL(string: next),
-              let page = nextURL
+              let nextURL = URL(string: next),
+              let pageString = nextURL
             .query()?
+            .components(separatedBy: "&")
+            .filter({$0.contains("page")})
+            .first,
+              let page = pageString
             .components(separatedBy: "=")
             .last,
               let pageInt = Int(page)
